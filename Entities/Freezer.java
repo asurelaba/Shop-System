@@ -1,4 +1,5 @@
 package Entities;
+
 /*
  * Diary class represents the diary products.
  *

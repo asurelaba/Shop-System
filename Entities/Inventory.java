@@ -1,4 +1,5 @@
 package Entities;
+
 /*
  * Inventory class holds the list of all the items in the store.
  *

@@ -7,7 +7,7 @@ package Entities;
  * @author Ashwini Suresh
  * */
 
-public class Market extends Asile{
+public class Market extends Asile {
     private String displayZone;
 
     public Market(int asileNum, int capacity, int numOfShelves, String displayZone) {

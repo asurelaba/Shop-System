@@ -1,4 +1,5 @@
 package Entities;
+
 /*
  * Refrigirator class represents refrigirator asile.
  *

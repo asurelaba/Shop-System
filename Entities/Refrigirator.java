@@ -6,7 +6,7 @@ package Entities;
  * @author Ashwini Suresh
  * */
 
-public class Refrigirator extends Asile{
+public class Refrigirator extends Asile {
     private float temp;
 
     public Refrigirator(int asileNum, int capacity, int numOfShelves, float temp) {
