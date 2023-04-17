@@ -44,6 +44,7 @@ public class Main {
                 asile1,supplierPerishable, "2023-01-04");
         NonPerishableItem lyzol = new NonPerishableItem(5,"lyzol","p&g",5.0f,10,10,asile3,supplierCleaning,1f);
 
+
         
 
     }
