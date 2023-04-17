@@ -1,11 +1,12 @@
 package Entities;
+
 /*
  * Employee class represents all employees of the store.
  *
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Employee extends Person{
+public class Employee extends Person {
     protected int employeeId;
     protected String role;
     protected int salary;
@@ -29,7 +30,7 @@ public class Employee extends Person{
         this.manager = manager;
     }
 
-    public Employee(Employee employee){
+    public Employee(Employee employee) {
         super(employee.getPersonId(), employee.getName(), employee.getAddress(), employee.getPhone());
         this.employeeId = employee.employeeId;
         this.role = employee.role;

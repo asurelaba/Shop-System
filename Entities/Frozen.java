@@ -8,7 +8,7 @@ import java.util.Date;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Frozen extends PerishableItem{
+public class Frozen extends PerishableItem {
     private float minTemp;
     //private Freezer freezer;
 

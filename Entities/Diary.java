@@ -8,7 +8,7 @@ import java.util.Date;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Diary extends PerishableItem{
+public class Diary extends PerishableItem {
     private Refrigirator refrigirator;
 
     public Diary(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore) {
