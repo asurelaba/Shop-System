@@ -11,9 +11,8 @@ import java.util.Date;
 public class Diary extends PerishableItem{
     private Refrigirator refrigirator;
 
-    public Diary(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore, Refrigirator refrigirator) {
+    public Diary(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore) {
         super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
-        this.refrigirator = refrigirator;
     }
 
     public Refrigirator getRefrigirator() {
