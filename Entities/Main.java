@@ -36,16 +36,36 @@ public class Main {
         Market marketCenter = new Market(21,30,1,"Center");
         Market marketBack = new Market(22,30,1,"Back");
 
+        Refrigirator refrigirator1 = new Refrigirator(40,40,3,30.5f);
+
+        Freezer freezer1 = new Freezer(50,20,5,-12.0f);
+
         FreshProduce apple = new FreshProduce(1, "apple","Dole",12f, 100, 100,
                 marketFront, supplierFruit, "2023-01-01",1.2f );
         FreshProduce orange = new FreshProduce(2, "orange","Dole",10f, 50, 50,
                 marketFront, supplierFruit, "2023-01-04",1.5f );
+
         PerishableItem oreo = new PerishableItem(3, "oreo","Pepsico",5,12,
                 asile1,supplierPerishable, "2023-01-04");
-        NonPerishableItem lyzol = new NonPerishableItem(5,"lyzol","p&g",5.0f,10,10,asile3,supplierCleaning,1f);
 
+        NonPerishableItem lyzol = new NonPerishableItem(5,"lyzol","p&g",5.0f,10,
+                10,asile3,supplierCleaning,1f);
 
+        Frozen iceCream = new Frozen(10,"iceCream","Brusters", 3.2f, 30,30,
+                freezer1,supplierPerishable,"2023-07-05",-10f);
+
+        Diary milk = new Diary(50,"Whole milk","Kirkland",4.0f,50,
+                50,refrigirator1,supplierPerishable,"2023-05-01");
+
+        BillingCounter counter1 = new BillingCounter(1,employee2);
+        BillingCounter counter2 = new BillingCounter(2,employee1);
+
+        Item[] items = {milk,iceCream,apple};
+        Receipt receipt1 = new Receipt(1001,20.0f, items, new Date(),counter1);
+        Customer customer1 = new Customer(person4, receipt1);
+
+        Item[] inventoryArr = {milk, iceCream,apple,orange, lyzol, oreo};
+        Inventory inventory = new Inventory(inventoryArr);
         
-
     }
 }

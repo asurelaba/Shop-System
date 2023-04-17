@@ -10,14 +10,14 @@ import java.util.Date;
  * */
 public class Frozen extends PerishableItem{
     private float minTemp;
-    private Freezer freezer;
+    //private Freezer freezer;
 
     public Frozen(int itemNo, String name, String brand, float price, int quantity,
-                  int maxQuantity, Asile asile, Supplier supplier, String bestBefore,
-                  float minTemp, Freezer freezer) {
-        super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
+                  int maxQuantity, Asile freezer, Supplier supplier, String bestBefore,
+                  float minTemp) {
+        super(itemNo, name, brand, price, quantity, maxQuantity, freezer, supplier, bestBefore);
         this.minTemp = minTemp;
-        this.freezer = freezer;
+        //this.freezer = freezer;
     }
 
     public float getMinTemp() {
@@ -28,11 +28,11 @@ public class Frozen extends PerishableItem{
         this.minTemp = minTemp;
     }
 
-    public Freezer getFreezer() {
-        return freezer;
-    }
-
-    public void setFreezer(Freezer freezer) {
-        this.freezer = freezer;
-    }
+//    public Freezer getFreezer() {
+//        return freezer;
+//    }
+//
+//    public void setFreezer(Freezer freezer) {
+//        this.freezer = freezer;
+//    }
 }
