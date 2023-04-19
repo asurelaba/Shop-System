@@ -159,4 +159,9 @@ public class Shop {
         System.out.println("Order Placed");
     }
 
+    public void printItemsInShop(){
+        System.out.println("Shop name: " + shopName);
+        inventory.printInventory();
+    }
+
 }

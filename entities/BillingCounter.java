@@ -1,13 +1,18 @@
 package entities;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /*
  * BillingCounter class represents checkout counters.
  *
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
+ * change log
+ * 04/18/2023 added checkout method and change array receipts to ArrayList
  * */
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
 
 public class BillingCounter {
 
@@ -42,6 +47,7 @@ public class BillingCounter {
         float total = 0;
         for (Item item : items) {
             total += item.getPrice();
+            item.setQuantity(item.quantity-1);
         }
         Receipt receipt = new Receipt(Receipt.getTotalReceipts(), total, employee.getName(), items, Calendar.getInstance().getTime(), this);
         customer.setReceipt(receipt);

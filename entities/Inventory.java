@@ -7,6 +7,8 @@ import java.util.ArrayList;
  *
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
+ * change log
+ * 04/18/2023 added needToRestock method
  * */
 public class Inventory {
     private ArrayList<Item> items;
@@ -47,6 +49,12 @@ public class Inventory {
         return shouldRestock;
     }
 
-
+    public void printInventory(){
+        System.out.println("------Inventory-----------");
+        System.out.println("Item name          Quantity");
+        for (Item item : items) {
+            System.out.println(item.getName() + " " + item.getQuantity());
+        }
+    }
 
 }

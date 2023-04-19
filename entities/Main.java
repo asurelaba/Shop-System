@@ -1,4 +1,8 @@
 package entities;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 /*
  * Main class - starting point of the application. Has main method implementation.
  *
@@ -6,9 +10,6 @@ package entities;
  * @author Ashwini Suresh
  * */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
@@ -114,12 +115,13 @@ public class Main {
         if (shop.getInventory().needToRestock()) {
             shop.placeOrder();
         }
-
         ArrayList<Item> itemsInCart2 = new ArrayList<Item>();
         itemsInCart2.add(iceCream);
         itemsInCart2.add(oreo);
         counter2.checkout(shop, customer1, itemsInCart2);
 
         shop.getInventory().needToRestock();
+
+        shop.printItemsInShop();
     }
 }
