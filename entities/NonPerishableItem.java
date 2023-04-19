@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * NonPerishableItem represents the items that do not have expiry date.
@@ -21,4 +21,9 @@ public class NonPerishableItem extends Item {
     public void setWeight(float weight) {
         this.weight = weight;
     }
+
+//    @Override
+//    public boolean orderMoreItem() {
+//        return (quantity < 10)? true: false;
+//    }
 }

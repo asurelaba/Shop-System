@@ -1,4 +1,6 @@
-package Entities;
+package entities;
+
+import java.util.ArrayList;
 
 /*
  * Refrigirator class represents refrigirator asile.
@@ -7,13 +9,14 @@ package Entities;
  * @author Ashwini Suresh
  * */
 public class Supplier {
-    int supplierNum;
-    String supplierName;
-    Item[] items;
+    private int supplierNum;
+    private String supplierName;
+    private ArrayList<Item> items;
 
     public Supplier(int supplierNum, String supplierName) {
         this.supplierNum = supplierNum;
         this.supplierName = supplierName;
+        this.items = new ArrayList<Item>();
     }
 
     public int getSupplierNum() {
@@ -24,11 +27,17 @@ public class Supplier {
         this.supplierNum = supplierNum;
     }
 
-    public Item[] getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(Item[] items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+
 }

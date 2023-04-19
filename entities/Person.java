@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 /*
  * Person class represents all personal of the store including customers, employee.
  *
@@ -9,13 +9,13 @@ package Entities;
 public class Person {
     protected int personId;
     protected String name;
-    protected String Address;
+    protected String address;
     protected String phone;
 
     public Person(int personId, String name, String address, String phone) {
         this.personId = personId;
         this.name = name;
-        Address = address;
+        this.address = address;
         this.phone = phone;
     }
 
@@ -36,11 +36,11 @@ public class Person {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        address = address;
     }
 
     public String getPhone() {

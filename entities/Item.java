@@ -1,6 +1,4 @@
-package Entities;
-
-import java.util.Date;
+package entities;
 
 /*
  * Item class represents all the goods that are in the store.
@@ -10,7 +8,7 @@ import java.util.Date;
  * */
 
 
-public class Item {
+public  class Item {
     protected int itemNo;
     protected String name;
     protected String brand;
@@ -105,4 +103,5 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }
