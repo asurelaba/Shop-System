@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * Asile class represents asiles and the items they hold.

@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * Diary class represents the diary products.
@@ -6,10 +6,10 @@ package Entities;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Freezer extends Asile {
+public class FreezerAsile extends Asile {
     private float temp;
 
-    public Freezer(int asileNum, int capacity, int numOfShelves, float temp) {
+    public FreezerAsile(int asileNum, int capacity, int numOfShelves, float temp) {
         super(asileNum, capacity, numOfShelves);
         this.temp = temp;
     }

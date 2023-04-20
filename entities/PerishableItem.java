@@ -1,6 +1,5 @@
-package Entities;
+package entities;
 
-import java.util.Date;
 /*
  * PerishableItem represents the items that have expiry date.
  *

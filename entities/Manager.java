@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 /*
  * Manager class represents manager with their special permissions.
  *

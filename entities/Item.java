@@ -1,6 +1,4 @@
-package Entities;
-
-import java.util.Date;
+package entities;
 
 /*
  * Item class represents all the goods that are in the store.
@@ -105,4 +103,5 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
 }

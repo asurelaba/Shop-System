@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * FreshProduce class represents all the fruits and vegetables.
@@ -7,12 +7,10 @@ package Entities;
  * @author Ashwini Suresh
  * */
 
-import java.util.Date;
-
-public class FreshProduce extends PerishableItem {
+public class FreshProduceItem extends PerishableItem {
     private float pricePerPound;
 
-    public FreshProduce(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore, float pricePerPound) {
+    public FreshProduceItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore, float pricePerPound) {
         super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
         this.pricePerPound = pricePerPound;
     }

@@ -1,5 +1,6 @@
-package Entities;
+package entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /*
@@ -12,13 +13,15 @@ import java.util.Date;
 public class Receipt {
     private int receiptNum;
     private float total;
-    private Item[] items;
+    private String employeeName;
+    private ArrayList<Item> items;
     private Date shoppedDate;
     private BillingCounter counter;
 
-    public Receipt(int receiptNum, float total, Item[] items, Date shoppedDate, BillingCounter counter) {
+    public Receipt(int receiptNum, float total, String employeeName, ArrayList<Item> items, Date shoppedDate, BillingCounter counter) {
         this.receiptNum = receiptNum;
         this.total = total;
+        this.employeeName = employeeName;
         this.items = items;
         this.shoppedDate = shoppedDate;
         this.counter = counter;
@@ -40,11 +43,11 @@ public class Receipt {
         this.total = total;
     }
 
-    public Item[] getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(Item[] items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 
@@ -62,5 +65,15 @@ public class Receipt {
 
     public void setCounter(BillingCounter counter) {
         this.counter = counter;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer printReceipt = new StringBuffer(receiptNum + "\n" + shoppedDate + "\n" + "served by: " + employeeName + "\n");
+        for (Item item : items) {
+            printReceipt.append(item.getName() + "      " + item.getPrice() + "\n");
+        }
+        printReceipt.append("Total:   " + total);
+        return printReceipt.toString();
     }
 }

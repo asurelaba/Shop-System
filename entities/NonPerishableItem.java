@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * NonPerishableItem represents the items that do not have expiry date.

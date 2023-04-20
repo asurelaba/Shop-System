@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * Market class is a type of Asile that represents the open market area to display all the fresh produce.
@@ -7,10 +7,10 @@ package Entities;
  * @author Ashwini Suresh
  * */
 
-public class Market extends Asile {
+public class MarketAsile extends Asile {
     private String displayZone;
 
-    public Market(int asileNum, int capacity, int numOfShelves, String displayZone) {
+    public MarketAsile(int asileNum, int capacity, int numOfShelves, String displayZone) {
         super(asileNum, capacity, numOfShelves);
         this.displayZone = displayZone;
     }

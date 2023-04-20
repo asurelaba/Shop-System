@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 /*
  * Employee class represents all employees of the store.
