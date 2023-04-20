@@ -11,8 +11,6 @@ import java.util.Date;
  * */
 
 public class Receipt {
-
-    private static int totalReceipts;
     private int receiptNum;
     private float total;
     private String employeeName;
@@ -67,14 +65,6 @@ public class Receipt {
 
     public void setCounter(BillingCounter counter) {
         this.counter = counter;
-    }
-
-    public static int getTotalReceipts() {
-        return totalReceipts;
-    }
-
-    public static void updateTotalReceipts() {
-        Receipt.totalReceipts += 1;
     }
 
     @Override
