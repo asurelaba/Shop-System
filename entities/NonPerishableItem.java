@@ -21,9 +21,4 @@ public class NonPerishableItem extends Item {
     public void setWeight(float weight) {
         this.weight = weight;
     }
-
-//    @Override
-//    public boolean orderMoreItem() {
-//        return (quantity < 10)? true: false;
-//    }
 }
