@@ -12,8 +12,6 @@ import java.util.Calendar;
  * 04/18/2023 added checkout method and change array receipts to ArrayList
  * */
 
-
-
 public class BillingCounter {
 
     private int counterNum;

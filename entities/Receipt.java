@@ -11,14 +11,14 @@ import java.util.Date;
  * */
 
 public class Receipt {
+
+    private static int totalReceipts;
     private int receiptNum;
     private float total;
     private String employeeName;
     private ArrayList<Item> items;
     private Date shoppedDate;
     private BillingCounter counter;
-
-    private static int totalReceipts;
 
     public Receipt(int receiptNum, float total, String employeeName, ArrayList<Item> items, Date shoppedDate, BillingCounter counter) {
         this.receiptNum = receiptNum;

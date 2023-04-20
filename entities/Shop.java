@@ -163,5 +163,4 @@ public class Shop {
         System.out.println("Shop name: " + shopName);
         inventory.printInventory();
     }
-
 }

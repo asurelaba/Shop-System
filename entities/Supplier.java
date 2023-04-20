@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
+
 public class Supplier {
     private int supplierNum;
     private String supplierName;
@@ -38,6 +39,4 @@ public class Supplier {
     public void addItem(Item item) {
         items.add(item);
     }
-
-
 }
