@@ -10,7 +10,7 @@ public class Employee extends Person {
     protected int employeeId;
     protected String role;
     protected int salary;
-    protected Employee manager;
+    protected Manager manager;
 
 
     public Employee(int personId, String name, String address, String phone,
@@ -22,7 +22,7 @@ public class Employee extends Person {
     }
 
     public Employee(int personId, String name, String address, String phone,
-                    int employeeId, String role, int salary, Employee manager) {
+                    int employeeId, String role, int salary, Manager manager) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
@@ -66,7 +66,16 @@ public class Employee extends Person {
         return manager;
     }
 
-    public void setManager(Employee manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
+    }
+
+    @Override
+    public void printDetails() {
+        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
+                + phone + "\n Role: " + role );
+        if(manager != null){
+            System.out.println("Manager: "+ manager);
+        }
     }
 }

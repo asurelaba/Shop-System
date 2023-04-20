@@ -22,9 +22,9 @@ public class Main {
                 111, "Manager", 10000);
         Manager manager1 = new Manager(employee1, "store lock \n leave approval");
         Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567",
-                111, "Billing", 1000, manager1);
+                222, "Billing", 1000, manager1);
         Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777",
-                111, "AsileMaintaence", 10000, manager1);
+                333, "AsileMaintaence", 10000, manager1);
 
         Asile asile1 = new Asile(1, 20, 4);
         Asile asile2 = new Asile(2, 20, 4);

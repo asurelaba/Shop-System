@@ -6,7 +6,7 @@ package entities;
  * @author Ashwini Suresh
  * */
 
-public class Person {
+public abstract class Person {
     protected int personId;
     protected String name;
     protected String address;
@@ -50,4 +50,6 @@ public class Person {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public abstract void printDetails();
 }
