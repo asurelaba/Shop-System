@@ -40,20 +40,21 @@ public class BillingCounter {
         this.employee = employee;
     }
 
-    public void checkout(Shop shop, Customer customer, ArrayList<Item> items) {
-        Receipt.updateTotalReceipts();
+    public Receipt checkout(Shop shop, Customer customer, ArrayList<Item> items) {
         float total = 0;
         for (Item item : items) {
             total += item.getPrice();
             item.setQuantity(item.quantity-1);
         }
-        Receipt receipt = new Receipt(Receipt.getTotalReceipts(), total, employee.getName(), items, Calendar.getInstance().getTime(), this);
-        customer.setReceipt(receipt);
+
+        Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1 , total, employee.getName(), items, Calendar.getInstance().getTime(), this);
         receipts.add(receipt);
         shop.updateNetGain(total);
         System.out.println("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
-        System.out.println(receipt);
+        return receipt;
     }
 
-
+    public int getReceiptsCount(){
+        return receipts.size();
+    }
 }
