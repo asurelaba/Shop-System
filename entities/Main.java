@@ -18,17 +18,13 @@ public class Main {
         Supplier supplierCleaning = new Supplier(3, "SupplierCleaning");
         Supplier supplierPerishable = new Supplier(4, "SupplierPerishable");
 
-        Person person1 = new Person(1, "person1", "xyz 1234", "1231231234");
-        Person person2 = new Person(2, "person2", "abc 1234", "12312312567");
-        Person person3 = new Person(3, "person3", "efg 1234", "12312318777");
-        Person person4 = new Person(4, "person4", "ght 1234", "12312312766");
-
         Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234",
                 111, "Manager", 10000);
+        Manager manager1 = new Manager(employee1, "store lock \n leave approval");
         Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567",
-                111, "Billing", 1000, employee1);
+                111, "Billing", 1000, manager1);
         Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777",
-                111, "AsileMaintaence", 10000, employee1);
+                111, "AsileMaintaence", 10000, manager1);
 
         Asile asile1 = new Asile(1, 20, 4);
         Asile asile2 = new Asile(2, 20, 4);
@@ -65,7 +61,11 @@ public class Main {
 
         ArrayList<Item> items = new ArrayList<Item>(Arrays.asList(milk, iceCream, apple));
         Receipt receipt1 = new Receipt(1001, 20.0f, employee2.getName(), items, new Date(), counter1);
-        Customer customer1 = new Customer(person4, receipt1);
+
+        Customer customer1 = new Customer(7, "person7", "xyz 1234", "1231231234", receipt1);
+        Customer customer2 = new Customer(8, "person8", "abc 1234", "12312312567");
+        Customer customer3 = new Customer(9, "person9", "efg 1234", "12312318777");
+        Customer customer4 = new Customer(10, "person10", "ght 1234", "12312312766");
 
         ArrayList<Item> inventoryArr = new ArrayList<Item>();
         inventoryArr.add(iceCream);
@@ -110,18 +110,25 @@ public class Main {
         ArrayList<Item> itemsInCart = new ArrayList<Item>();
         itemsInCart.add(iceCream);
         itemsInCart.add(orange);
-        counter2.checkout(shop, customer1, itemsInCart);
+        customer1.setReceipt(counter1.checkout(shop, customer1, itemsInCart));
+        System.out.println(customer1.getReceipt());
         //check for the stock and order from supplier if stock is low.
         if (shop.getInventory().needToRestock()) {
             shop.placeOrder();
         }
+
         ArrayList<Item> itemsInCart2 = new ArrayList<Item>();
         itemsInCart2.add(iceCream);
         itemsInCart2.add(oreo);
-        counter2.checkout(shop, customer1, itemsInCart2);
+        customer2.setReceipt(counter2.checkout(shop, customer2, itemsInCart2));
+        System.out.println(customer2.getReceipt());
 
         shop.getInventory().needToRestock();
 
         shop.printItemsInShop();
+
+        customer2.printDetails();
+        employee1.printDetails();
+        employee3.printDetails();
     }
 }
