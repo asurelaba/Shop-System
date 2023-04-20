@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * @author Ashwini Suresh
  * */
 public class Shop {
-
     private String shopName;
     private ArrayList<Employee> employees;
     private Inventory inventory;
@@ -162,5 +161,13 @@ public class Shop {
     public void printItemsInShop(){
         System.out.println("Shop name: " + shopName);
         inventory.printInventory();
+    }
+
+    public int getTotalReceiptsCount(){
+        int total = 0 ;
+        for (BillingCounter billingCounter: billingCounters) {
+            total += billingCounter.getReceiptsCount();
+        }
+        return total;
     }
 }
