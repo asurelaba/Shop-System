@@ -8,7 +8,7 @@ package entities;
  * */
 
 
-public  class Item {
+public class Item {
     protected int itemNo;
     protected String name;
     protected String brand;
