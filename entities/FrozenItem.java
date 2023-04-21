@@ -24,7 +24,7 @@ public class FrozenItem extends PerishableItem {
         this.minTemp = minTemp;
     }
 
-    public String findMyItem(){
+    public String findMyItem() {
         return itemNo + " " + itemName + " is in freezer section" + "requires cold packaging. Min Temp:" + minTemp;
     }
 }

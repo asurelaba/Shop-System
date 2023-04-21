@@ -73,9 +73,9 @@ public class Employee extends Person {
     @Override
     public void printDetails() {
         System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
-                + phone + "\n Role: " + role );
-        if(manager != null){
-            System.out.println("Manager: "+ manager);
+                + phone + "\n Role: " + role);
+        if (manager != null) {
+            System.out.println("Manager: " + manager);
         }
     }
 }

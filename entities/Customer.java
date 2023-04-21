@@ -6,7 +6,7 @@ package entities;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Customer extends Person{
+public class Customer extends Person {
     private Receipt receipt;
 
     public Customer(int personId, String name, String address, String phone, Receipt receipt) {
@@ -27,7 +27,7 @@ public class Customer extends Person{
     }
 
     @Override
-    public void printDetails(){
+    public void printDetails() {
         System.out.println("Customer Name: " + name);
         System.out.println("latest Receipt : " + receipt);
     }

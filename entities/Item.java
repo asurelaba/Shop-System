@@ -106,8 +106,8 @@ public abstract class Item {
         this.quantity = quantity;
     }
 
-    public String findMyItem(){
-        return itemNo + " " + itemName + "is in Asile " + asile ;
+    public String findMyItem() {
+        return itemNo + " " + itemName + "is in Asile " + asile;
     }
 
     @Override

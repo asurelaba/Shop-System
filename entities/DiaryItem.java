@@ -12,7 +12,7 @@ public class DiaryItem extends PerishableItem {
         super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
     }
 
-    public String findMyItem(){
+    public String findMyItem() {
         return itemNo + " " + itemName + " is in refrigerator section" + "bestBefore: " + bestBefore;
     }
 }
