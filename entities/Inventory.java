@@ -51,9 +51,9 @@ public class Inventory {
 
     public void printInventory(){
         System.out.println("------Inventory-----------");
-        System.out.println("Item name          Quantity");
+        System.out.println("Item Name          Quantity");
         for (Item item : items) {
-            System.out.println(item.getName() + " " + item.getQuantity());
+            System.out.println(item.getItemName() + " " + item.getQuantity());
         }
     }
 

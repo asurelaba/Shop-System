@@ -68,9 +68,12 @@ public class Main {
         Customer customer4 = new Customer(10, "person10", "ght 1234", "12312312766");
 
         ArrayList<Item> inventoryArr = new ArrayList<Item>();
+        System.out.println(iceCream.findMyItem());
         inventoryArr.add(iceCream);
         inventoryArr.add(orange);
+        System.out.println(lyzol.findMyItem());
         inventoryArr.add(lyzol);
+        System.out.println(milk.findMyItem());
         inventoryArr.add(oreo);
         Inventory inventory = new Inventory(inventoryArr);
 
@@ -130,5 +133,12 @@ public class Main {
         customer2.printDetails();
         employee1.printDetails();
         employee3.printDetails();
+
+        Employee employee4 = new Employee(3, "person3", "efg 1234", "12312318777",
+                333, "AsileMaintaence", 10000, manager1);
+        Employee employee5 = new Employee(3, "perso3", "efg 1234", "12312318777",
+                333, "AsileMaintaence", 10000, manager1);
+
+        System.out.println("Employees are same? : " + employee4.equals(employee5));
     }
 }

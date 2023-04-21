@@ -6,6 +6,8 @@ package entities;
  * @author Ashwini Suresh
  * */
 
+import java.util.Objects;
+
 public abstract class Person {
     protected int personId;
     protected String name;
@@ -52,4 +54,17 @@ public abstract class Person {
     }
 
     public abstract void printDetails();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return personId == person.personId && Objects.equals(name, person.name) && Objects.equals(phone, person.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personId, name, phone);
+    }
 }

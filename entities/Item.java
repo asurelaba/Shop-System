@@ -8,9 +8,11 @@ package entities;
  * */
 
 
-public class Item {
+import java.util.Objects;
+
+public abstract class Item {
     protected int itemNo;
-    protected String name;
+    protected String itemName;
     protected String brand;
     protected float price;
     protected int quantity;
@@ -21,7 +23,7 @@ public class Item {
     public Item(int itemNo, String name, String brand, float price,
                 int quantity, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
-        this.name = name;
+        this.itemName = name;
         this.brand = brand;
         this.price = price;
         this.quantity = quantity;
@@ -32,7 +34,7 @@ public class Item {
 
     public Item(int itemNo, String name, String brand, int quantity, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
-        this.name = name;
+        this.itemName = name;
         this.brand = brand;
         this.quantity = quantity;
         this.maxQuantity = maxQuantity;
@@ -48,12 +50,12 @@ public class Item {
         this.itemNo = itemNo;
     }
 
-    public String getName() {
-        return name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getBrand() {
@@ -104,4 +106,20 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public String findMyItem(){
+        return itemNo + " " + itemName + "is in Asile " + asile ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return itemNo == item.itemNo && Objects.equals(itemName, item.itemName) && Objects.equals(brand, item.brand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemNo, itemName, brand);
+    }
 }

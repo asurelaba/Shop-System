@@ -8,7 +8,7 @@ package entities;
  * */
 
 public class PerishableItem extends Item {
-    private String bestBefore;
+    protected String bestBefore;
 
     public PerishableItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore) {
         super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier);
@@ -26,5 +26,9 @@ public class PerishableItem extends Item {
 
     public void setBestBefore(String bestBefore) {
         this.bestBefore = bestBefore;
+    }
+
+    public String findMyItem(){
+        return itemNo + " " + itemName + "is in Asile " + asile + "bestBefore: " + bestBefore;
     }
 }
