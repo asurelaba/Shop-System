@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 /*
  * Receipt class represents receipt generated during the billing at the billing counter.
@@ -71,9 +72,22 @@ public class Receipt {
     public String toString() {
         StringBuffer printReceipt = new StringBuffer(receiptNum + "\n" + shoppedDate + "\n" + "served by: " + employeeName + "\n");
         for (Item item : items) {
-            printReceipt.append(item.getName() + "      " + item.getPrice() + "\n");
+            printReceipt.append(item.getItemName() + "      " + item.getPrice() + "\n");
         }
         printReceipt.append("Total:   " + total);
         return printReceipt.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receipt receipt = (Receipt) o;
+        return receiptNum == receipt.receiptNum && Float.compare(receipt.total, total) == 0 && Objects.equals(employeeName, receipt.employeeName) && Objects.equals(counter, receipt.counter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(receiptNum, total, employeeName, counter);
     }
 }

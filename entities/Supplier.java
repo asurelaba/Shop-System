@@ -39,4 +39,9 @@ public class Supplier {
     public void addItem(Item item) {
         items.add(item);
     }
+
+    @Override
+    public String toString(){
+        return ("Supplier Name : " + supplierName + "\nSupplier Id : " + supplierNum + "\n No. of items ordered: " + items.size());
+    }
 }

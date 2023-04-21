@@ -17,7 +17,7 @@ public class Inventory {
         this.items = items;
     }
 
-    public Inventory(){
+    public Inventory() {
         items = new ArrayList<>();
     }
 
@@ -25,22 +25,22 @@ public class Inventory {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items){
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         items.add(item);
     }
 
-    public void removeItem(Item item){
+    public void removeItem(Item item) {
         items.remove(item);
     }
 
-    public boolean needToRestock(){
+    public boolean needToRestock() {
         boolean shouldRestock = false;
         for (Item item : items) {
-            if (item.getQuantity() < 5){
+            if (item.getQuantity() < 5) {
                 //add items to supplier order list
                 item.getSupplier().addItem(item);
                 shouldRestock = true;
@@ -49,12 +49,11 @@ public class Inventory {
         return shouldRestock;
     }
 
-    public void printInventory(){
+    public void printInventory() {
         System.out.println("------Inventory-----------");
-        System.out.println("Item name          Quantity");
+        System.out.println("Item Name          Quantity");
         for (Item item : items) {
-            System.out.println(item.getName() + " " + item.getQuantity());
+            System.out.println(item.getItemName() + " " + item.getQuantity());
         }
     }
-
 }

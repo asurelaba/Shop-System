@@ -51,4 +51,9 @@ public class Asile {
     public void setItemsInShelf(Item[] itemsInShelf) {
         this.itemsInShelf = itemsInShelf;
     }
+
+    @Override
+    public String toString() {
+        return asileNum + " ";
+    }
 }

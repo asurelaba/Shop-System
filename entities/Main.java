@@ -10,7 +10,6 @@ import java.util.Date;
  * @author Ashwini Suresh
  * */
 
-
 public class Main {
     public static void main(String[] args) {
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
@@ -18,13 +17,10 @@ public class Main {
         Supplier supplierCleaning = new Supplier(3, "SupplierCleaning");
         Supplier supplierPerishable = new Supplier(4, "SupplierPerishable");
 
-        Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234",
-                111, "Manager", 10000);
+        Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234", 111, "Manager", 10000);
         Manager manager1 = new Manager(employee1, "store lock \n leave approval");
-        Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567",
-                111, "Billing", 1000, manager1);
-        Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777",
-                111, "AsileMaintaence", 10000, manager1);
+        Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567", 222, "Billing", 1000, manager1);
+        Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
 
         Asile asile1 = new Asile(1, 20, 4);
         Asile asile2 = new Asile(2, 20, 4);
@@ -39,22 +35,16 @@ public class Main {
 
         FreezerAsile freezer1 = new FreezerAsile(50, 20, 5, -12.0f);
 
-        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 100,
-                marketFront, supplierFruit, "2023-01-01", 1.2f);
-        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 50,
-                marketFront, supplierFruit, "2023-01-04", 1.5f);
+        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 100, marketFront, supplierFruit, "2023-01-01", 1.2f);
+        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 50, marketFront, supplierFruit, "2023-01-04", 1.5f);
 
-        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 3, 12,
-                asile1, supplierPerishable, "2023-01-04");
+        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 3, 12, asile1, supplierPerishable, "2023-01-04");
 
-        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 10,
-                10, asile3, supplierCleaning, 1f);
+        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 10, 10, asile3, supplierCleaning, 1f);
 
-        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 30, 30,
-                freezer1, supplierPerishable, "2023-07-05", -10f);
+        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 30, 30, freezer1, supplierPerishable, "2023-07-05", -10f);
 
-        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 50,
-                50, refrigirator1, supplierPerishable, "2023-05-01");
+        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, "2023-05-01");
 
         BillingCounter counter1 = new BillingCounter(1, employee2);
         BillingCounter counter2 = new BillingCounter(2, employee1);
@@ -68,9 +58,12 @@ public class Main {
         Customer customer4 = new Customer(10, "person10", "ght 1234", "12312312766");
 
         ArrayList<Item> inventoryArr = new ArrayList<Item>();
+        System.out.println(iceCream.findMyItem());
         inventoryArr.add(iceCream);
         inventoryArr.add(orange);
+        System.out.println(lyzol.findMyItem());
         inventoryArr.add(lyzol);
+        System.out.println(milk.findMyItem());
         inventoryArr.add(oreo);
         Inventory inventory = new Inventory(inventoryArr);
 
@@ -130,5 +123,10 @@ public class Main {
         customer2.printDetails();
         employee1.printDetails();
         employee3.printDetails();
+
+        Employee employee4 = new Employee(3, "person3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee5 = new Employee(3, "perso3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+
+        System.out.println("Employees are same? : " + employee4.equals(employee5));
     }
 }

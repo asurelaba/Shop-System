@@ -21,4 +21,15 @@ public class Manager extends Employee {
     public void setPermissions(String permissions) {
         this.permissions = permissions;
     }
+
+    @Override
+    public void printDetails(){
+        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
+                + phone + "\n Role: " + role + "\n Manager"+ manager + "\n permissions" + permissions);
+    }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
