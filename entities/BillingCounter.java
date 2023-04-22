@@ -43,18 +43,32 @@ public class BillingCounter {
     public Receipt checkout(Shop shop, Customer customer, ArrayList<Item> items) {
         float total = 0;
         for (Item item : items) {
+            if (item.getClass() == FreshProduceItem.class) {
+                FreshProduceItem freshProduceItem = (FreshProduceItem) item;
+                total += calculatePrice(getWeight(item), freshProduceItem.getPricePerPound());
+                item.setQuantity(item.quantity - 1);
+                continue;
+            }
             total += item.getPrice();
-            item.setQuantity(item.quantity-1);
+            item.setQuantity(item.quantity - 1);
         }
 
-        Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1 , total, employee.getName(), items, Calendar.getInstance().getTime(), this);
+        Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1, total, employee.getName(), items, Calendar.getInstance().getTime(), this);
         receipts.add(receipt);
         shop.updateNetGain(total);
         System.out.println("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
         return receipt;
     }
 
-    public int getReceiptsCount(){
+    public int getReceiptsCount() {
         return receipts.size();
+    }
+
+    public static float calculatePrice(float weight, float pricePerPound) {
+        return weight * pricePerPound;
+    }
+
+    public static float getWeight(Item item) {
+        return 1.0f;
     }
 }

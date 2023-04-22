@@ -6,23 +6,21 @@ package entities;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Employee extends Person {
+public class Employee extends Person implements ISalary, IWorkingShift {
     protected int employeeId;
     protected String role;
     protected int salary;
     protected Manager manager;
 
 
-    public Employee(int personId, String name, String address, String phone,
-                    int employeeId, String role, int salary) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, String role, int salary) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
         this.salary = salary;
     }
 
-    public Employee(int personId, String name, String address, String phone,
-                    int employeeId, String role, int salary, Manager manager) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, String role, int salary, Manager manager) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
@@ -72,10 +70,24 @@ public class Employee extends Person {
 
     @Override
     public void printDetails() {
-        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
-                + phone + "\n Role: " + role);
+        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: " + phone + "\n Role: " + role);
         if (manager != null) {
             System.out.println("Manager: " + manager);
         }
+    }
+
+    @Override
+    public void salaryHike(float percentage) {
+        salary += (salary * percentage);
+    }
+
+    @Override
+    public boolean isMinWageMet() {
+        return (salary > ISalary.minWagePerHour) ? true : false;
+    }
+
+    @Override
+    public void setWorkingHours() {
+        System.out.println("The employee cannot work for more than 8 hrs");
     }
 }

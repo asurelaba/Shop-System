@@ -7,17 +7,20 @@ package entities;
  * @author Ashwini Suresh
  * */
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Asile {
-    private int asileNum;
-    private int capacity;
-    private int numOfShelves;
-    private Item[] itemsInShelf;
+    protected int asileNum;
+    protected int capacity;
+    protected int numOfShelves;
+    protected ArrayList<Item> itemsInShelf;
 
     public Asile(int asileNum, int capacity, int numOfShelves) {
         this.asileNum = asileNum;
         this.capacity = capacity;
         this.numOfShelves = numOfShelves;
-        this.itemsInShelf = new Item[capacity];
+        this.itemsInShelf = new ArrayList<Item>();
     }
 
     public int getAsileNum() {
@@ -44,16 +47,21 @@ public class Asile {
         this.numOfShelves = numOfShelves;
     }
 
-    public Item[] getItemsInShelf() {
+    public ArrayList<Item> getItemsInShelf() {
         return itemsInShelf;
     }
 
-    public void setItemsInShelf(Item[] itemsInShelf) {
+    public void setItemsInShelf(ArrayList<Item> itemsInShelf) {
         this.itemsInShelf = itemsInShelf;
     }
 
     @Override
     public String toString() {
         return asileNum + " ";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asileNum, capacity, numOfShelves);
     }
 }

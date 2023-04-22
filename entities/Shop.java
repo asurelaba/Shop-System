@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /*
  * Shop class represents all the entities of the shop.
@@ -8,8 +9,8 @@ import java.util.ArrayList;
  * @version 1.0 18 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Shop {
-    private String shopName;
+public final class Shop implements IFoodSafetyChecks, IFileTaxes {
+    private final String shopName;
     private ArrayList<Employee> employees;
     private Inventory inventory;
     private ArrayList<Asile> asiles;
@@ -19,8 +20,13 @@ public class Shop {
     private ArrayList<Customer> customers;
     private ArrayList<Supplier> suppliers;
     private ArrayList<BillingCounter> billingCounters;
-
     private double netGain;
+    private static String closedOn;
+
+    static {
+        System.out.println("................Welcome.............");
+        closedOn = "New Year, Easter, Independence day, Christmas Eve";
+    }
 
     public Inventory getInventory() {
         return inventory;
@@ -43,11 +49,8 @@ public class Shop {
         this.refrigirators = new ArrayList<RefrigiratorAsile>();
     }
 
-    public Shop(ArrayList<Employee> employees, Inventory inventory, ArrayList<Asile> asiles,
-                ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers,
-                ArrayList<RefrigiratorAsile> refrigirators,
-                ArrayList<Customer> customers, ArrayList<Supplier> suppliers,
-                ArrayList<BillingCounter> billingCounters) {
+    public Shop(String shopName, ArrayList<Employee> employees, Inventory inventory, ArrayList<Asile> asiles, ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers, ArrayList<RefrigiratorAsile> refrigirators, ArrayList<Customer> customers, ArrayList<Supplier> suppliers, ArrayList<BillingCounter> billingCounters) {
+        this.shopName = shopName;
         this.employees = employees;
         this.inventory = inventory;
         this.asiles = asiles;
@@ -64,12 +67,24 @@ public class Shop {
         return shopName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
     public double getNetGain() {
         return netGain;
+    }
+
+    public ArrayList<Asile> getAsiles() {
+        return asiles;
+    }
+
+    public ArrayList<MarketAsile> getMarkets() {
+        return markets;
+    }
+
+    public ArrayList<FreezerAsile> getFreezers() {
+        return freezers;
+    }
+
+    public ArrayList<RefrigiratorAsile> getRefrigirators() {
+        return refrigirators;
     }
 
     public void setNetGain(double netGain) {
@@ -158,16 +173,55 @@ public class Shop {
         System.out.println("Order Placed");
     }
 
-    public void printItemsInShop(){
-        System.out.println("Shop name: " + shopName);
-        inventory.printInventory();
+    public void printItemsInShop() {
+        System.out.println("Shop Name: " + shopName);
+        System.out.println("-----Items in the shop--------");
+        for (Asile asile : asiles) {
+            for (Item item : asile.getItemsInShelf()) {
+                System.out.println(item.getItemName());
+            }
+        }
+        System.out.println("-----------END--------------");
     }
 
-    public int getTotalReceiptsCount(){
-        int total = 0 ;
-        for (BillingCounter billingCounter: billingCounters) {
+    public int getTotalReceiptsCount() {
+        int total = 0;
+        for (BillingCounter billingCounter : billingCounters) {
             total += billingCounter.getReceiptsCount();
         }
         return total;
+    }
+
+    @Override
+    public boolean hasFoodHandlingProcess() {
+        //check if food handling is done in all the freezer and perishable section
+        boolean hasFoodHandling = false;
+        for (FreezerAsile freezer : freezers) {
+            hasFoodHandling = hasFoodHandling && freezer.hasFoodHandlingProcess();
+        }
+        return hasFoodHandling;
+    }
+
+    @Override
+    public void removePerishableBeforeExpiry() {
+        //ask inventory to check through all items for expiry
+
+        for (Asile asile : asiles) {
+            if (asile.getClass() == FreezerAsile.class) {
+                ((FreezerAsile) asile).removePerishableBeforeExpiry();
+            } else if (asile.getClass() == RefrigiratorAsile.class) {
+                ((RefrigiratorAsile) asile).removePerishableBeforeExpiry();
+            }
+        }
+    }
+
+    @Override
+    public void fileTaxes() {
+        if (Calendar.getInstance().get(Calendar.MONTH) - IFileTaxes.filingMonth < 2) {
+            if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - IFileTaxes.filingDay < 10) {
+                System.out.println("we are running out of time. Hurry up!");
+            }
+            System.out.println("filing tax for this year");
+        }
     }
 }
