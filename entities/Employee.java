@@ -7,10 +7,16 @@ package entities;
  * @author Ashwini Suresh
  * */
 public class Employee extends Person implements ISalary, IWorkingShift {
+
+    protected static byte workHours;
     protected int employeeId;
     protected String role;
     protected int salary;
     protected Manager manager;
+
+    static {
+        workHours = 8;
+    }
 
 
     public Employee(int personId, String name, String address, String phone, int employeeId, String role, int salary) {
@@ -88,6 +94,6 @@ public class Employee extends Person implements ISalary, IWorkingShift {
 
     @Override
     public void setWorkingHours() {
-        System.out.println("The employee cannot work for more than 8 hrs");
+        System.out.println("The employee cannot work for more than " + workHours + " hrs");
     }
 }
