@@ -8,7 +8,6 @@ package entities;
  * */
 
 public interface IFoodSafetyChecks {
-
     boolean hasFoodHandlingProcess();
 
     void removePerishableBeforeExpiry();

@@ -7,8 +7,7 @@ package entities;
  * @author Ashwini Suresh
  * */
 
-public interface IMaintainColdSection extends IFoodSafetyChecks{
-
+public interface IMaintainColdSection extends IFoodSafetyChecks {
     float freezerMinTemp = 32;
     float refrigiratorMinTemp = 40;
 

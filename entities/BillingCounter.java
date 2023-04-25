@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 /*
  * BillingCounter class represents checkout counters.
@@ -45,7 +46,7 @@ public class BillingCounter {
         for (Item item : items) {
             if (item.getClass() == FreshProduceItem.class) {
                 FreshProduceItem freshProduceItem = (FreshProduceItem) item;
-                total += calculatePrice(getWeight(item), freshProduceItem.getPricePerPound());
+                total += calculatePrice(getWeightOfItemInCart(item), freshProduceItem.getPricePerPound());
                 item.setQuantity(item.quantity - 1);
                 continue;
             }
@@ -68,7 +69,11 @@ public class BillingCounter {
         return weight * pricePerPound;
     }
 
-    public static float getWeight(Item item) {
-        return 1.0f;
+    public static float getWeightOfItemInCart(Item item) {
+        Random random = new Random();
+        if (item.getClass() == FreshProduceItem.class) {
+            return random.nextFloat(10);
+        }
+        return 1;
     }
 }
