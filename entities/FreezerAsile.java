@@ -30,11 +30,11 @@ public class FreezerAsile extends Asile implements IMaintainColdSection {
         this.temp = temp;
     }
 
-    public Date getLastCleaned() {
+    public Date getLastCleanedDate() {
         return lastCleaned;
     }
 
-    public void setLastCleaned(Date lastCleaned) {
+    public void setLastCleanedDate(Date lastCleaned) {
         this.lastCleaned = lastCleaned;
     }
 
