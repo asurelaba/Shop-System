@@ -58,10 +58,8 @@ public class FreezerAsile extends Asile implements IMaintainColdSection {
         PerishableItem perishableItem;
         int i = 0;
         while (i < itemsInShelf.size()) {
-            // System.out.println("in refrigirator" + itemsInShelf.get(i).getItemName() + LocalDate.now());
             perishableItem = (PerishableItem) itemsInShelf.get(i);
             if (LocalDate.now().isAfter(perishableItem.bestBefore)) {
-                //System.out.println("Removing" + perishableItem.getItemName() + " from refrigirator" + LocalDate.now().compareTo(perishableItem.bestBefore));
                 itemsInShelf.remove(perishableItem);
                 continue;
             }
@@ -71,8 +69,8 @@ public class FreezerAsile extends Asile implements IMaintainColdSection {
 
     @Override
     public void maintainTemp() {
-        if (temp > IMaintainColdSection.freezerMinTemp) {
-            temp = IMaintainColdSection.freezerMinTemp;
+        if (temp > IMaintainColdSection.FREEZER_MIN_TEMP) {
+            temp = IMaintainColdSection.FREEZER_MIN_TEMP;
         }
     }
 }

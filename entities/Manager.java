@@ -6,7 +6,7 @@ package entities;
  * @author Ashwini Suresh
  * */
 
-public class Manager extends Employee {
+public class Manager extends Employee implements ISalary {
     private String permissions;
 
     public Manager(Employee employee, String permissions) {
@@ -23,13 +23,24 @@ public class Manager extends Employee {
     }
 
     @Override
-    public void printDetails(){
+    public void printDetails() {
         System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
-                + phone + "\n Role: " + role + "\n Manager"+ manager + "\n permissions" + permissions);
+                + phone + "\n Role: " + role + "\n Manager" + manager + "\n permissions" + permissions);
     }
 
     @Override
-    public String toString(){
+    public void salaryHike(Employee employee, float percentage) {
+        salary += (salary * percentage);
+        employee.setSalary(employee.getSalary() * percentage);
+    }
+
+    @Override
+    public boolean isMinWageMet(Employee employee) {
+        return (employee.getSalary() > ISalary.MIN_WAGE_PER_HOUR) ? true : false;
+    }
+
+    @Override
+    public String toString() {
         return name;
     }
 }

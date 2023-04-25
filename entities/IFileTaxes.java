@@ -11,8 +11,8 @@ import java.util.Date;
  * */
 
 public interface IFileTaxes {
-    int filingMonth = 04;
-    int filingDay = 15;
+    int FILING_MONTH = 04;
+    int FILING_DAY = 15;
 
     void fileTaxes();
 }

@@ -192,9 +192,9 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         return total;
     }
 
+    //check if food handling is done in all the freezer and perishable section
     @Override
     public boolean hasFoodHandlingProcess() {
-        //check if food handling is done in all the freezer and perishable section
         boolean hasFoodHandling = false;
         for (FreezerAsile freezer : freezers) {
             hasFoodHandling = hasFoodHandling && freezer.hasFoodHandlingProcess();
@@ -202,10 +202,9 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         return hasFoodHandling;
     }
 
+    //ask inventory to check through all items for expiry
     @Override
     public void removePerishableBeforeExpiry() {
-        //ask inventory to check through all items for expiry
-
         for (Asile asile : asiles) {
             if (asile.getClass() == FreezerAsile.class) {
                 ((FreezerAsile) asile).removePerishableBeforeExpiry();
@@ -217,8 +216,8 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
 
     @Override
     public void fileTaxes() {
-        if (Calendar.getInstance().get(Calendar.MONTH) - IFileTaxes.filingMonth < 2) {
-            if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - IFileTaxes.filingDay < 10) {
+        if (Calendar.getInstance().get(Calendar.MONTH) - IFileTaxes.FILING_MONTH < 2) {
+            if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - IFileTaxes.FILING_DAY < 10) {
                 System.out.println("we are running out of time. Hurry up!");
             }
             System.out.println("filing tax for this year");
@@ -228,6 +227,13 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public void maintainTempForAllFreezer() {
         for (IMaintainColdSection maintainColdSection : freezers) {
             maintainColdSection.maintainTemp();
+        }
+    }
+
+    //Manager will increase the salary of employee by said percentage
+    public void increaseSalaryForEmployees(float percentage) {
+        for (Employee employee : employees) {
+            employee.getManager().salaryHike(employee, percentage);
         }
     }
 }

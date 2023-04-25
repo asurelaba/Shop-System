@@ -7,9 +7,9 @@ package entities;
  * @author Ashwini Suresh
  * */
 public interface ISalary {
-    int minWagePerHour = 15;
+    int MIN_WAGE_PER_HOUR = 15;
 
-    void salaryHike(float percentage);
+    void salaryHike(Employee employee, float percentage);
 
-    boolean isMinWageMet();
+    boolean isMinWageMet(Employee employee);
 }

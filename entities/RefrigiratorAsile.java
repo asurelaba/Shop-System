@@ -44,8 +44,8 @@ public class RefrigiratorAsile extends Asile implements IMaintainColdSection {
 
     @Override
     public void maintainTemp() {
-        if (temp < IMaintainColdSection.refrigiratorMinTemp && temp > IMaintainColdSection.freezerMinTemp) {
-            temp = IMaintainColdSection.refrigiratorMinTemp;
+        if (temp < IMaintainColdSection.REFRIGIRATOR_MIN_TEMP && temp > IMaintainColdSection.FREEZER_MIN_TEMP) {
+            temp = IMaintainColdSection.REFRIGIRATOR_MIN_TEMP;
         }
     }
 

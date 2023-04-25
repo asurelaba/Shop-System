@@ -8,8 +8,8 @@ package entities;
  * */
 
 public interface IMaintainColdSection extends IFoodSafetyChecks {
-    float freezerMinTemp = 32;
-    float refrigiratorMinTemp = 40;
+    float FREEZER_MIN_TEMP = 32;
+    float REFRIGIRATOR_MIN_TEMP = 40;
 
     boolean isColdStorageCleaned();
 

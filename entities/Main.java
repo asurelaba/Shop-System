@@ -142,5 +142,7 @@ public class Main {
         shop.removePerishableBeforeExpiry();
         System.out.println(refrigirator1);
         shop.printItemsInShop();
+
+        shop.increaseSalaryForEmployees(2.0f);
     }
 }

@@ -6,12 +6,12 @@ package entities;
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
-public class Employee extends Person implements ISalary, IWorkingShift {
+public class Employee extends Person implements IWorkingShift {
 
     protected static byte workHours;
     protected int employeeId;
     protected String role;
-    protected int salary;
+    protected float salary;
     protected Manager manager;
 
     static {
@@ -19,14 +19,14 @@ public class Employee extends Person implements ISalary, IWorkingShift {
     }
 
 
-    public Employee(int personId, String name, String address, String phone, int employeeId, String role, int salary) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, String role, float salary) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
         this.salary = salary;
     }
 
-    public Employee(int personId, String name, String address, String phone, int employeeId, String role, int salary, Manager manager) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, String role, float salary, Manager manager) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
@@ -58,15 +58,15 @@ public class Employee extends Person implements ISalary, IWorkingShift {
         this.role = role;
     }
 
-    public int getSalary() {
+    public float getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(float salary) {
         this.salary = salary;
     }
 
-    public Employee getManager() {
+    public Manager getManager() {
         return manager;
     }
 
@@ -80,16 +80,6 @@ public class Employee extends Person implements ISalary, IWorkingShift {
         if (manager != null) {
             System.out.println("Manager: " + manager);
         }
-    }
-
-    @Override
-    public void salaryHike(float percentage) {
-        salary += (salary * percentage);
-    }
-
-    @Override
-    public boolean isMinWageMet() {
-        return (salary > ISalary.minWagePerHour) ? true : false;
     }
 
     @Override
