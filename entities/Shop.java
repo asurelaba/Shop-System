@@ -224,4 +224,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
             System.out.println("filing tax for this year");
         }
     }
+
+    public void maintainTempForAllFreezer() {
+        for (IMaintainColdSection maintainColdSection : freezers) {
+            maintainColdSection.maintainTemp();
+        }
+    }
 }
