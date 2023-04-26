@@ -1,7 +1,9 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 /*
  * Main class - starting point of the application. Has main method implementation.
@@ -11,6 +13,7 @@ import java.util.Date;
  * */
 
 public class Main {
+
     public static void main(String[] args) {
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
         Supplier supplierVeggie = new Supplier(2, "SupplierVeggie");
@@ -31,20 +34,22 @@ public class Main {
         MarketAsile marketBack = new MarketAsile(22, 30, 1, "Back");
 
         RefrigiratorAsile refrigirator1 = new RefrigiratorAsile(40, 40, 3, 30.5f);
-        RefrigiratorAsile refrigirator2 = new RefrigiratorAsile(40, 40, 3, 30.5f);
+        RefrigiratorAsile refrigirator2 = new RefrigiratorAsile(41, 40, 3, 30.5f);
 
         FreezerAsile freezer1 = new FreezerAsile(50, 20, 5, -12.0f);
 
-        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 100, marketFront, supplierFruit, "2023-01-01", 1.2f);
-        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 50, marketFront, supplierFruit, "2023-01-04", 1.5f);
+        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 100, marketFront, supplierFruit, LocalDate.parse("2023-01-01"), 1.2f);
+        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 50, marketFront, supplierFruit, LocalDate.parse("2023-01-04"), 1.5f);
 
-        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 3, 12, asile1, supplierPerishable, "2023-01-04");
+        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 3, 12, asile1, supplierPerishable, LocalDate.parse("2023-02-02"));
 
         NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 10, 10, asile3, supplierCleaning, 1f);
 
-        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 30, 30, freezer1, supplierPerishable, "2023-07-05", -10f);
+        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 30, 30, freezer1, supplierPerishable, LocalDate.parse("2023-07-01"), -10f);
 
-        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, "2023-05-01");
+        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
+        DiaryItem yogurt = new DiaryItem(51, "yogurt", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-12-10"));
+        DiaryItem cheese = new DiaryItem(52, "Cheese", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
 
         BillingCounter counter1 = new BillingCounter(1, employee2);
         BillingCounter counter2 = new BillingCounter(2, employee1);
@@ -58,19 +63,23 @@ public class Main {
         Customer customer4 = new Customer(10, "person10", "ght 1234", "12312312766");
 
         ArrayList<Item> inventoryArr = new ArrayList<Item>();
-        System.out.println(iceCream.findMyItem());
+        //System.out.println(iceCream.findMyItem());
         inventoryArr.add(iceCream);
         inventoryArr.add(orange);
-        System.out.println(lyzol.findMyItem());
+        //System.out.println(lyzol.findMyItem());
         inventoryArr.add(lyzol);
-        System.out.println(milk.findMyItem());
+        //System.out.println(milk.findMyItem());
         inventoryArr.add(oreo);
+        inventoryArr.add(milk);
+        inventoryArr.add(yogurt);
+        inventoryArr.add(cheese);
         Inventory inventory = new Inventory(inventoryArr);
 
         //creating the shop with inventory, employees and asiles
         Shop shop = new Shop("Costco");
 
         shop.setInventory(inventory);
+        shop.printItemsInShop();
 
         shop.addEmployee(employee1);
         shop.addEmployee(employee2);
@@ -79,25 +88,25 @@ public class Main {
         shop.addAsile(asile1);
         shop.addAsile(asile2);
         shop.addAsile(asile3);
+        shop.addAsile(refrigirator1);
+        shop.addAsile(refrigirator2);
+        shop.addAsile(freezer1);
+        shop.addAsile(marketBack);
+        shop.addAsile(marketCenter);
+        shop.addAsile(marketFront);
+
+        inventory.addItemToAsile(shop);
 
         shop.addSupplier(supplierCleaning);
         shop.addSupplier(supplierVeggie);
         shop.addSupplier(supplierFruit);
         shop.addSupplier(supplierPerishable);
 
-        shop.addFreezer(freezer1);
-
-        shop.addRefrigirator(refrigirator1);
-        shop.addRefrigirator(refrigirator2);
-
-        shop.addMarket(marketBack);
-        shop.addMarket(marketCenter);
-        shop.addMarket(marketFront);
-
         shop.addBillingCounter(counter1);
         shop.addBillingCounter(counter2);
 
         shop.addCustomer(customer1);
+
 
         //customer adding items in the cart and checkout
         ArrayList<Item> itemsInCart = new ArrayList<Item>();
@@ -128,5 +137,12 @@ public class Main {
         Employee employee5 = new Employee(3, "perso3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
 
         System.out.println("Employees are same? : " + employee4.equals(employee5));
+
+        System.out.println(refrigirator1);
+        shop.removePerishableBeforeExpiry();
+        System.out.println(refrigirator1);
+        shop.printItemsInShop();
+
+        shop.increaseSalaryForEmployees(2.0f);
     }
 }

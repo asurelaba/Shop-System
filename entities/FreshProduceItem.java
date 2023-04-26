@@ -7,10 +7,12 @@ package entities;
  * @author Ashwini Suresh
  * */
 
-public class FreshProduceItem extends PerishableItem {
+import java.time.LocalDate;
+
+public final class FreshProduceItem extends PerishableItem {
     private float pricePerPound;
 
-    public FreshProduceItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, String bestBefore, float pricePerPound) {
+    public FreshProduceItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore, float pricePerPound) {
         super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
         this.pricePerPound = pricePerPound;
     }

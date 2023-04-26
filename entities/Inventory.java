@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * change log
  * 04/18/2023 added needToRestock method
  * */
-public class Inventory {
+public class Inventory implements ISupplyChain {
     private ArrayList<Item> items;
 
     public Inventory(ArrayList<Item> items) {
@@ -37,6 +37,19 @@ public class Inventory {
         items.remove(item);
     }
 
+    public void addItemToAsile(Shop shop) {
+        for (Item item : items) {
+            for (Asile asile : shop.getAsiles()) {
+                System.out.println(" item " + item.getItemName() + item.getAsile() + " asile " + asile.getAsileNum());
+                if (item.getAsile().getAsileNum() == asile.getAsileNum()) {
+                    asile.getItemsInShelf().add(item);
+                    System.out.println("added item " + item.getItemName() + " to " + asile.getAsileNum());
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean needToRestock() {
         boolean shouldRestock = false;
         for (Item item : items) {
@@ -49,6 +62,7 @@ public class Inventory {
         return shouldRestock;
     }
 
+    @Override
     public void printInventory() {
         System.out.println("------Inventory-----------");
         System.out.println("Item Name          Quantity");
