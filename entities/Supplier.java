@@ -46,7 +46,7 @@ public class Supplier {
         items.add(item);
     }
 
-    public void printOderToFile() {
+    public void printOrderToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(supplierName + " order"));) {
             writer.write(items.toString());
         } catch (IOException ioException) {
