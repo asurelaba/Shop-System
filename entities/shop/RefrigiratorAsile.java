@@ -1,4 +1,4 @@
-package shopclasses;
+package shop;
 
 /*
  * Refrigirator class represents refrigirator asile.

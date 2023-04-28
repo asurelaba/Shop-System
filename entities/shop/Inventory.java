@@ -1,4 +1,4 @@
-package shopclasses;
+package shop;
 
 import customexceptions.InvalidBestBeforeException;
 import customexceptions.ItemNotFilledBySupplier;

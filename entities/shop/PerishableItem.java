@@ -1,4 +1,4 @@
-package shopclasses;
+package shop;
 
 import java.time.LocalDate;
 import java.util.Date;

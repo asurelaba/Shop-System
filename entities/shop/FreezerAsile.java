@@ -1,4 +1,4 @@
-package shopclasses;
+package shop;
 
 import customexceptions.FreezerAsileNotWorkingException;
 import interfaces.IMaintainColdSection;

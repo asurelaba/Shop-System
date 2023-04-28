@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import people.*;
-import shopclasses.*;
+import shop.*;
 
 /*
  * Main class - starting point of the application. Has main method implementation.
@@ -19,9 +19,9 @@ import shopclasses.*;
  * */
 
 public class Main {
-
+    public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
     public static void main(String[] args) {
-        Logger logger = LogManager.getLogger(Main.class.getName());
+
 
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
         Supplier supplierVeggie = new Supplier(2, "SupplierVeggie");
@@ -155,7 +155,7 @@ public class Main {
 
         freezer1.setTemp(90f);
         shop.addFreezer(freezer1);
-        logger.debug(freezer1.getTemp() + "  " + IMaintainColdSection.REFRIGIRATOR_MIN_TEMP);
+        LOGGER.debug(freezer1.getTemp() + "  " + IMaintainColdSection.REFRIGIRATOR_MIN_TEMP);
         shop.maintainTempForAllFreezer();
 
         shop.isMinWageMetForEmployeesUnder(manager1);
@@ -168,12 +168,12 @@ public class Main {
         employee5.setShiftStartTime(Calendar.getInstance().getTime());
         employee5.setShiftEndTime(Calendar.getInstance().getTime());
         for (Employee em : manager1.getEmployees()) {
-            logger.debug(em.getName() + " " + em.getShiftEndTime() + " " + em.getShiftStartTime());
+            LOGGER.debug(em.getName() + " " + em.getShiftEndTime() + " " + em.getShiftStartTime());
         }
         manager1.checkEmployeeWorkingHours();
 
         if (!shop.hasFoodHandlingProcess()) {
-            logger.fatal("The shop will be closed due to food safety violations.");
+            LOGGER.fatal("The shop will be closed due to food safety violations.");
         }
 
 

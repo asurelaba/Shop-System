@@ -1,4 +1,4 @@
-package shopclasses;
+package shop;
 
 import customexceptions.ItemNotFilledBySupplier;
 import customexceptions.NoMoreItemInAsileException;
