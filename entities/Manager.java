@@ -61,6 +61,12 @@ public class Manager extends Employee implements ISalary {
 
     }
 
+    public void checkEmployeeWorkingHours(){
+        for (Employee employee: employees) {
+            employee.checkWorkingHours();
+        }
+    }
+
     @Override
     public String toString() {
         return name;

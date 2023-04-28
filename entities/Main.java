@@ -16,13 +16,7 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-
         Logger logger = LogManager.getLogger(Main.class.getName());
-        logger.info("Hello from logger");
-        logger.debug("Hello from logger");
-        logger.warn("Hello from logger");
-        logger.error("Hello from logger");
-        logger.fatal("Hello from logger");
 
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
         Supplier supplierVeggie = new Supplier(2, "SupplierVeggie");
@@ -142,8 +136,8 @@ public class Main {
         employee1.printDetails();
         employee3.printDetails();
 
-        Employee employee4 = new Employee(3, "person3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
-        Employee employee5 = new Employee(3, "perso3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee4 = new Employee(4, "person4", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee5 = new Employee(5, "perso5", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
 
         System.out.println("Employees are same? : " + employee4.equals(employee5));
 
@@ -160,6 +154,18 @@ public class Main {
         shop.maintainTempForAllFreezer();
 
         shop.isMinWageMetForEmployeesUnder(manager1);
+        employee2.setShiftStartTime(Calendar.getInstance().getTime());
+        employee2.setShiftEndTime(Calendar.getInstance().getTime());
+        employee3.setShiftStartTime(Calendar.getInstance().getTime());
+        employee3.setShiftEndTime(Calendar.getInstance().getTime());
+        employee4.setShiftStartTime(Calendar.getInstance().getTime());
+        employee4.setShiftEndTime(Calendar.getInstance().getTime());
+        employee5.setShiftStartTime(Calendar.getInstance().getTime());
+        employee5.setShiftEndTime(Calendar.getInstance().getTime());
+        for (Employee em : manager1.getEmployees()) {
+            logger.debug(em.name + " " + em.shiftEndTime + " " + em.shiftStartTime);
+        }
+        manager1.checkEmployeeWorkingHours();
 
         if (!shop.hasFoodHandlingProcess()) {
             logger.fatal("The shop will be closed due to food safety violations.");

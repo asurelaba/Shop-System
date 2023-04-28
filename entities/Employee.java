@@ -1,4 +1,7 @@
-import java.util.Calendar;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 /*
@@ -8,7 +11,7 @@ import java.util.Date;
  * @author Ashwini Suresh
  * */
 public class Employee extends Person implements IWorkingShift {
-
+    private static final Logger logger = LogManager.getLogger(Employee.class);
     protected static byte workHours;
     protected int employeeId;
     protected String role;
@@ -83,6 +86,7 @@ public class Employee extends Person implements IWorkingShift {
     }
 
     public void setShiftStartTime(Date shiftStartTime) {
+        logger.debug("Shift start time set");
         this.shiftStartTime = shiftStartTime;
     }
 
@@ -91,6 +95,7 @@ public class Employee extends Person implements IWorkingShift {
     }
 
     public void setShiftEndTime(Date shiftEndTime) {
+        logger.debug("Shift end time set");
         this.shiftEndTime = shiftEndTime;
     }
 
@@ -108,6 +113,12 @@ public class Employee extends Person implements IWorkingShift {
 
     @Override
     public void setWorkingHours() {
-        System.out.println("The employee cannot work for more than " + workHours + " hrs");
+        logger.info("The employee cannot work for more than " + workHours + " hrs");
+    }
+
+    public void checkWorkingHours(){
+        if(shiftStartTime.compareTo(shiftEndTime) > 8) {
+            logger.info("Employee " + name + "(" + employeeId +") is over worked!!!!");
+        }
     }
 }
