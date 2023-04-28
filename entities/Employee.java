@@ -117,7 +117,7 @@ public class Employee extends Person implements IWorkingShift {
     }
 
     public void checkWorkingHours(){
-        if(shiftStartTime.compareTo(shiftEndTime) > 8) {
+        if(getWorkedHoursForTheDay() > 8) {
             logger.info("Employee " + name + "(" + employeeId +") is over worked!!!!");
         }
     }
