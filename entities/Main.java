@@ -19,7 +19,7 @@ import shop.*;
  * */
 
 public class Main {
-    public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
     public static void main(String[] args) {
 
 
