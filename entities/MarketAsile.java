@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * Market class is a type of Asile that represents the open market area to display all the fresh produce.
  *

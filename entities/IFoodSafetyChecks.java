@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * IFoodSafetyChecks interface is to ensure the food safey regulations.
  *

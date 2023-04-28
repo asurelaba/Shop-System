@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * Item class represents all the goods that are in the store.
  *
@@ -15,28 +13,31 @@ public abstract class Item {
     protected String itemName;
     protected String brand;
     protected float price;
-    protected int quantity;
+    protected int quantityInAsile;
+    protected int quantityInInventory;
     protected int maxQuantity;
     protected Asile asile;
     protected Supplier supplier;
 
     public Item(int itemNo, String name, String brand, float price,
-                int quantity, int maxQuantity, Asile asile, Supplier supplier) {
+                int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
         this.itemName = name;
         this.brand = brand;
         this.price = price;
-        this.quantity = quantity;
+        this.quantityInAsile = quantityInAsile;
+        this.quantityInInventory = quantityInInventory;
         this.maxQuantity = maxQuantity;
         this.asile = asile;
         this.supplier = supplier;
     }
 
-    public Item(int itemNo, String name, String brand, int quantity, int maxQuantity, Asile asile, Supplier supplier) {
+    public Item(int itemNo, String name, String brand, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
         this.itemName = name;
         this.brand = brand;
-        this.quantity = quantity;
+        this.quantityInAsile = quantityInAsile;
+        this.quantityInInventory = quantityInInventory;
         this.maxQuantity = maxQuantity;
         this.asile = asile;
         this.supplier = supplier;
@@ -98,12 +99,20 @@ public abstract class Item {
         this.maxQuantity = maxQuantity;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getQuantityInAsile() {
+        return quantityInAsile;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantityInAsile(int quantityInAsile) {
+        this.quantityInAsile = quantityInAsile;
+    }
+
+    public int getQuantityInInventory() {
+        return quantityInInventory;
+    }
+
+    public void setQuantityInInventory(int quantityInInventory) {
+        this.quantityInInventory = quantityInInventory;
     }
 
     public String findMyItem() {

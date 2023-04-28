@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * IWorkingShift interface is for employee to follow working shift hours.
  *

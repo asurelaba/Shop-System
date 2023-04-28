@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * Customer class represents customers of the shop and their shopping receipt.
  *

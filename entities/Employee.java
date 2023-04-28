@@ -1,4 +1,5 @@
-package entities;
+import java.util.Calendar;
+import java.util.Date;
 
 /*
  * Employee class represents all employees of the store.
@@ -13,6 +14,8 @@ public class Employee extends Person implements IWorkingShift {
     protected String role;
     protected float salary;
     protected Manager manager;
+    protected Date shiftStartTime;
+    protected Date shiftEndTime;
 
     static {
         workHours = 8;
@@ -32,6 +35,7 @@ public class Employee extends Person implements IWorkingShift {
         this.role = role;
         this.salary = salary;
         this.manager = manager;
+        manager.getEmployees().add(this);
     }
 
     public Employee(Employee employee) {
@@ -72,6 +76,26 @@ public class Employee extends Person implements IWorkingShift {
 
     public void setManager(Manager manager) {
         this.manager = manager;
+    }
+
+    public Date getShiftStartTime() {
+        return shiftStartTime;
+    }
+
+    public void setShiftStartTime(Date shiftStartTime) {
+        this.shiftStartTime = shiftStartTime;
+    }
+
+    public Date getShiftEndTime() {
+        return shiftEndTime;
+    }
+
+    public void setShiftEndTime(Date shiftEndTime) {
+        this.shiftEndTime = shiftEndTime;
+    }
+
+    public int getWorkedHoursForTheDay() {
+        return shiftEndTime.compareTo(shiftStartTime);
     }
 
     @Override

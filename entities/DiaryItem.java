@@ -1,5 +1,3 @@
-package entities;
-
 import java.time.LocalDate;
 
 /*
@@ -10,8 +8,8 @@ import java.time.LocalDate;
  * */
 public final class DiaryItem extends PerishableItem {
 
-    public DiaryItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
-        super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier, bestBefore);
+    public DiaryItem(int itemNo, String name, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
+        super(itemNo, name, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier, bestBefore);
     }
 
     public String findMyItem() {

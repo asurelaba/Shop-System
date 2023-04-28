@@ -1,11 +1,11 @@
-package entities;
-
 /*
  * IMaintainColdSection interface is extension of food safety.
  *
  * @version 1.0 21 Apr 2023
  * @author Ashwini Suresh
  * */
+
+import customexceptions.ColdStorageNotWorkingException;
 
 public interface IMaintainColdSection extends IFoodSafetyChecks {
     float FREEZER_MIN_TEMP = 32;
@@ -15,5 +15,5 @@ public interface IMaintainColdSection extends IFoodSafetyChecks {
 
     boolean hasBackupPower();
 
-    void maintainTemp();
+    void maintainTemp() throws ColdStorageNotWorkingException;
 }

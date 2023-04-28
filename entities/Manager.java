@@ -1,4 +1,3 @@
-package entities;
 /*
  * Manager class represents manager with their special permissions.
  *
@@ -6,12 +5,25 @@ package entities;
  * @author Ashwini Suresh
  * */
 
+import customexceptions.MinWageNotMetException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+
 public class Manager extends Employee implements ISalary {
+    private static final Logger logger = LogManager.getLogger(Manager.class);
     private String permissions;
+    private ArrayList<Employee> employees;
 
     public Manager(Employee employee, String permissions) {
         super(employee);
         this.permissions = permissions;
+        this.employees = new ArrayList<>();
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
     }
 
     public String getPermissions() {
@@ -24,8 +36,7 @@ public class Manager extends Employee implements ISalary {
 
     @Override
     public void printDetails() {
-        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: "
-                + phone + "\n Role: " + role + "\n Manager" + manager + "\n permissions" + permissions);
+        System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: " + phone + "\n Role: " + role + "\n Manager" + manager + "\n permissions" + permissions);
     }
 
     @Override
@@ -35,8 +46,19 @@ public class Manager extends Employee implements ISalary {
     }
 
     @Override
-    public boolean isMinWageMet(Employee employee) {
-        return (employee.getSalary() > ISalary.MIN_WAGE_PER_HOUR) ? true : false;
+    public void isMinWageMetForEmployees() {
+        for (Employee employee : employees) {
+            try {
+                if (employee.getSalary() < ISalary.MIN_WAGE_PER_HOUR) {
+                    throw new MinWageNotMetException("Min wage is not met for " + employee.name + ".");
+                }
+            } catch (MinWageNotMetException minWageNotMetException) {
+                logger.warn(minWageNotMetException.getMessage() + " Increasing the salary...");
+                employee.setSalary(ISalary.MIN_WAGE_PER_HOUR);
+            }
+
+        }
+
     }
 
     @Override

@@ -1,5 +1,3 @@
-package entities;
-
 /*
  * ISupplyChain interface enforce regular checks to stocks and show the inventory.
  *
