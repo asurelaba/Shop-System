@@ -1,6 +1,8 @@
+package shopclasses;
+
 import customexceptions.ItemNotFilledBySupplier;
 import customexceptions.NoMoreItemInAsileException;
-
+import people.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -15,7 +17,6 @@ import java.util.Random;
  * */
 
 public class BillingCounter {
-
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;

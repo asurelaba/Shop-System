@@ -1,4 +1,7 @@
+package shopclasses;
+
 import customexceptions.FreezerAsileNotWorkingException;
+import interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +17,7 @@ import java.util.Date;
  * @author Ashwini Suresh
  * */
 public class FreezerAsile extends Asile implements IMaintainColdSection {
-    private static final Logger logger = LogManager.getLogger(FreezerAsile.class);
+    private static final Logger LOGGER = LogManager.getLogger(FreezerAsile.class);
     private float temp;
     private Date lastCleaned;
     private boolean hasBackup;
@@ -79,7 +82,7 @@ public class FreezerAsile extends Asile implements IMaintainColdSection {
 
     @Override
     public void maintainTemp() throws FreezerAsileNotWorkingException {
-        logger.debug("in maintainTemp  " + temp);
+        LOGGER.debug("in maintainTemp  " + temp);
         if (temp > IMaintainColdSection.REFRIGIRATOR_MIN_TEMP) {
             System.out.println("Freezer " + asileNum + "is not working. Please replace");
             throw new FreezerAsileNotWorkingException("Freezer " + asileNum + "is not working. Please replace");

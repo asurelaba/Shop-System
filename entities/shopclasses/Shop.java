@@ -1,7 +1,15 @@
+package shopclasses;
+
 import customexceptions.ColdStorageNotWorkingException;
 import customexceptions.FreezerAsileNotWorkingException;
+import interfaces.IFileTaxes;
+import interfaces.IFoodSafetyChecks;
+import interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import people.Customer;
+import people.Employee;
+import people.Manager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +22,7 @@ import java.util.Calendar;
  * */
 public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     private final String shopName;
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private ArrayList<Employee> employees;
     private Inventory inventory;
     private ArrayList<Asile> asiles;
@@ -30,7 +38,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     static {
         System.out.println("................Welcome.............");
         closedOn = "New Year, Easter, Independence day, Christmas Eve";
-        logger = LogManager.getLogger(Shop.class);
+        LOGGER = LogManager.getLogger(Shop.class);
     }
 
     public Inventory getInventory() {
@@ -175,22 +183,22 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public void placeOrder() {
-        logger.info("Order Placed with suppliers");
+        LOGGER.info("Order Placed with suppliers");
         for (Supplier supplier : suppliers) {
-            supplier.printOderToFile();
+            supplier.printOrderToFile();
         }
     }
 
     public void printItemsInShop() {
-        logger.info("Shop Name: " + shopName);
-        logger.info("we are open Monday to Saturday 10 AM to 8 PM. Holidays:  " + closedOn);
-        logger.info("-----Items in the shop--------");
+        LOGGER.info("Shop Name: " + shopName);
+        LOGGER.info("we are open Monday to Saturday 10 AM to 8 PM. Holidays:  " + closedOn);
+        LOGGER.info("-----Items in the shop--------");
         for (Asile asile : asiles) {
             for (Item item : asile.getItemsInShelf()) {
-                logger.info(item.getItemNo() + " " + item.getItemName());
+                LOGGER.info(item.getItemNo() + " " + item.getItemName());
             }
         }
-        logger.info("-----------END--------------");
+        LOGGER.info("-----------END--------------");
     }
 
     public int getTotalReceiptsCount() {
@@ -227,32 +235,32 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public void fileTaxes() {
         if (Calendar.getInstance().get(Calendar.MONTH) - IFileTaxes.FILING_MONTH < 2) {
             if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - IFileTaxes.FILING_DAY < 10) {
-                logger.warn("we are running out of time. Hurry up!");
+                LOGGER.warn("we are running out of time. Hurry up!");
             }
-            logger.info("filing tax for this year");
+            LOGGER.info("filing tax for this year");
         }
     }
 
     //check for all freezer temperature. If the freezer is not working, then replace with a new freezer.
     public void maintainTempForAllFreezer() {
-        logger.debug("in maintainTempForAllFreezer");
+        LOGGER.debug("in maintainTempForAllFreezer");
         for (IMaintainColdSection maintainColdSection : freezers) {
             try {
                 maintainColdSection.maintainTemp();
             } catch (FreezerAsileNotWorkingException exception) {
-                logger.debug("in maintainTempForAllFreezer catch");
-                logger.error(exception.getMessage());
+                LOGGER.debug("in maintainTempForAllFreezer catch");
+                LOGGER.error(exception.getMessage());
                 FreezerAsile oldFreezerAsile = (FreezerAsile) maintainColdSection;
                 try {
                     FreezerAsile newFreezerasile = oldFreezerAsile.clone();
                     freezers.add(newFreezerasile);
                     freezers.remove(oldFreezerAsile);
-                    logger.info("The freezer is replaced");
+                    LOGGER.info("The freezer is replaced");
                 } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    logger.error("The freezer asile " + oldFreezerAsile.asileNum + " could not be replaced");
+                    LOGGER.error("The freezer asile " + oldFreezerAsile.asileNum + " could not be replaced");
                 }
             } catch (ColdStorageNotWorkingException exception) {
-                logger.info(exception.getMessage());
+                LOGGER.info(exception.getMessage());
             }
         }
     }
@@ -263,7 +271,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
             if (employee.getManager() != null) {
                 employee.getManager().salaryHike(employee, percentage);
             } else {
-                employee.salary += (employee.salary * percentage);
+                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage));
             }
         }
     }

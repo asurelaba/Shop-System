@@ -1,3 +1,7 @@
+package shopclasses;
+
+import java.time.LocalDate;
+
 /*
  * FreshProduce class represents all the fruits and vegetables.
  *
@@ -5,7 +9,7 @@
  * @author Ashwini Suresh
  * */
 
-import java.time.LocalDate;
+
 
 public final class FreshProduceItem extends PerishableItem {
     private float pricePerPound;

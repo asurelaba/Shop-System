@@ -1,5 +1,8 @@
+package shopclasses;
+
 import customexceptions.InvalidBestBeforeException;
 import customexceptions.ItemNotFilledBySupplier;
+import interfaces.ISupplyChain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +19,7 @@ import java.util.Calendar;
  * 04/18/2023 added needToRestock method
  * */
 public class Inventory implements ISupplyChain {
-    private static final Logger logger = LogManager.getLogger(Inventory.class);
+    private static final Logger LOGGER = LogManager.getLogger(Inventory.class);
     private ArrayList<Item> items;
 
     public Inventory(ArrayList<Item> items) {
@@ -81,7 +84,7 @@ public class Inventory implements ISupplyChain {
         if (item.quantityInInventory != 0 && item.quantityInInventory > 10) {
             item.setQuantityInAsile(item.quantityInInventory - 10);
         } else if (item.quantityInInventory < 10) {
-            logger.warn("Item " + +item.itemNo + " " + item.getItemName() + "stock is low in Inventory. Adding Item to the supplier");
+            LOGGER.warn("Item " + +item.itemNo + " " + item.getItemName() + "stock is low in Inventory. Adding Item to the supplier");
         } else {
             item.getSupplier().addItem(item);
             throw new ItemNotFilledBySupplier(item.itemNo + "  " + item.itemName + "is not filled by supplier. Please reorder");
@@ -89,12 +92,12 @@ public class Inventory implements ISupplyChain {
     }
 
     public void incomingItemsFromSupplier(ArrayList<Item> itemsFromSupplier) {
-        logger.info("Order filled by Supplier. Quality check in progress...... . ");
+        LOGGER.info("Order filled by Supplier. Quality check in progress...... . ");
         for (Item item : itemsFromSupplier) {
             if (item.getClass() == PerishableItem.class) {
                 PerishableItem perishableItem = (PerishableItem) item;
                 if (perishableItem.bestBefore.isBefore(LocalDate.now())) {
-                    logger.warn(perishableItem.itemNo + " " + perishableItem.itemName + " is already expired. Rejecting item. Adding item to supplier order");
+                    LOGGER.warn(perishableItem.itemNo + " " + perishableItem.itemName + " is already expired. Rejecting item. Adding item to supplier order");
                     perishableItem.supplier.addItem(perishableItem);
                     continue;
                 }
@@ -103,6 +106,6 @@ public class Inventory implements ISupplyChain {
                 }
             }
         }
-        logger.info("Quality check Complete. Items are loaded to inventory. ");
+        LOGGER.info("Quality check Complete. Items are loaded to inventory. ");
     }
 }

@@ -1,3 +1,5 @@
+package people;
+
 /*
  * Manager class represents manager with their special permissions.
  *
@@ -6,13 +8,14 @@
  * */
 
 import customexceptions.MinWageNotMetException;
+import interfaces.ISalary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
 public class Manager extends Employee implements ISalary {
-    private static final Logger logger = LogManager.getLogger(Manager.class);
+    private static final Logger LOGGER = LogManager.getLogger(Manager.class);
     private String permissions;
     private ArrayList<Employee> employees;
 
@@ -53,7 +56,7 @@ public class Manager extends Employee implements ISalary {
                     throw new MinWageNotMetException("Min wage is not met for " + employee.name + ".");
                 }
             } catch (MinWageNotMetException minWageNotMetException) {
-                logger.warn(minWageNotMetException.getMessage() + " Increasing the salary...");
+                LOGGER.warn(minWageNotMetException.getMessage() + " Increasing the salary...");
                 employee.setSalary(ISalary.MIN_WAGE_PER_HOUR);
             }
 

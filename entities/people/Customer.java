@@ -1,3 +1,7 @@
+package people;
+
+import shopclasses.Receipt;
+
 /*
  * Customer class represents customers of the shop and their shopping receipt.
  *

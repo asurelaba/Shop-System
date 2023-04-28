@@ -1,3 +1,5 @@
+package shopclasses;
+
 import java.time.LocalDate;
 import java.util.Date;
 /*

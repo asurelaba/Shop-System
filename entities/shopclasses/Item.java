@@ -1,3 +1,5 @@
+package shopclasses;
+
 /*
  * Item class represents all the goods that are in the store.
  *

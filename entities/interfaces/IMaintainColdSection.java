@@ -1,3 +1,5 @@
+package interfaces;
+
 /*
  * IMaintainColdSection interface is extension of food safety.
  *

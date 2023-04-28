@@ -1,3 +1,7 @@
+package interfaces;
+
+import people.Employee;
+
 /*
  * ISalary interface is to ensure the Employee  has salary hikes.
  *

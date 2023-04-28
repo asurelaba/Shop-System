@@ -1,3 +1,4 @@
+import interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -6,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+
+import people.*;
+import shopclasses.*;
+
 /*
  * Main class - starting point of the application. Has main method implementation.
  *
@@ -163,7 +168,7 @@ public class Main {
         employee5.setShiftStartTime(Calendar.getInstance().getTime());
         employee5.setShiftEndTime(Calendar.getInstance().getTime());
         for (Employee em : manager1.getEmployees()) {
-            logger.debug(em.name + " " + em.shiftEndTime + " " + em.shiftStartTime);
+            logger.debug(em.getName() + " " + em.getShiftEndTime() + " " + em.getShiftStartTime());
         }
         manager1.checkEmployeeWorkingHours();
 

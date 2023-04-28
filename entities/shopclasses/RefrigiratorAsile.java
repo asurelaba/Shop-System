@@ -1,3 +1,5 @@
+package shopclasses;
+
 /*
  * Refrigirator class represents refrigirator asile.
  *
@@ -6,6 +8,7 @@
  * */
 
 import customexceptions.RefrigiratorAsileNotWorkingException;
+import interfaces.IMaintainColdSection;
 
 import java.time.LocalDate;
 import java.util.Calendar;

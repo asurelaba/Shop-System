@@ -1,3 +1,5 @@
+package shopclasses;
+
 /*
  * NonPerishableItem represents the items that do not have expiry date.
  *

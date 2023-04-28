@@ -1,3 +1,4 @@
+package shopclasses;
 
 /*
  * Asile class represents asiles and the items they hold.
