@@ -1,4 +1,15 @@
-package entities;
+package shop;
+
+import customexceptions.ColdStorageNotWorkingException;
+import customexceptions.FreezerAsileNotWorkingException;
+import interfaces.IFileTaxes;
+import interfaces.IFoodSafetyChecks;
+import interfaces.IMaintainColdSection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import people.Customer;
+import people.Employee;
+import people.Manager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +22,7 @@ import java.util.Calendar;
  * */
 public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     private final String shopName;
+    private static final Logger LOGGER;
     private ArrayList<Employee> employees;
     private Inventory inventory;
     private ArrayList<Asile> asiles;
@@ -26,6 +38,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     static {
         System.out.println("................Welcome.............");
         closedOn = "New Year, Easter, Independence day, Christmas Eve";
+        LOGGER = LogManager.getLogger(Shop.class);
     }
 
     public Inventory getInventory() {
@@ -170,18 +183,22 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public void placeOrder() {
-        System.out.println("Order Placed");
+        LOGGER.info("Order Placed with suppliers");
+        for (Supplier supplier : suppliers) {
+            supplier.printOrderToFile();
+        }
     }
 
     public void printItemsInShop() {
-        System.out.println("Shop Name: " + shopName);
-        System.out.println("-----Items in the shop--------");
+        LOGGER.info("Shop Name: " + shopName);
+        LOGGER.info("we are open Monday to Saturday 10 AM to 8 PM. Holidays:  " + closedOn);
+        LOGGER.info("-----Items in the shop--------");
         for (Asile asile : asiles) {
             for (Item item : asile.getItemsInShelf()) {
-                System.out.println(item.getItemName());
+                LOGGER.info(item.getItemNo() + " " + item.getItemName());
             }
         }
-        System.out.println("-----------END--------------");
+        LOGGER.info("-----------END--------------");
     }
 
     public int getTotalReceiptsCount() {
@@ -195,7 +212,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     //check if food handling is done in all the freezer and perishable section
     @Override
     public boolean hasFoodHandlingProcess() {
-        boolean hasFoodHandling = false;
+        boolean hasFoodHandling = true;
         for (FreezerAsile freezer : freezers) {
             hasFoodHandling = hasFoodHandling && freezer.hasFoodHandlingProcess();
         }
@@ -218,22 +235,49 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public void fileTaxes() {
         if (Calendar.getInstance().get(Calendar.MONTH) - IFileTaxes.FILING_MONTH < 2) {
             if (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) - IFileTaxes.FILING_DAY < 10) {
-                System.out.println("we are running out of time. Hurry up!");
+                LOGGER.warn("we are running out of time. Hurry up!");
             }
-            System.out.println("filing tax for this year");
+            LOGGER.info("filing tax for this year");
         }
     }
 
+    //check for all freezer temperature. If the freezer is not working, then replace with a new freezer.
     public void maintainTempForAllFreezer() {
+        LOGGER.debug("in maintainTempForAllFreezer");
         for (IMaintainColdSection maintainColdSection : freezers) {
-            maintainColdSection.maintainTemp();
+            try {
+                maintainColdSection.maintainTemp();
+            } catch (FreezerAsileNotWorkingException exception) {
+                LOGGER.debug("in maintainTempForAllFreezer catch");
+                LOGGER.error(exception.getMessage());
+                FreezerAsile oldFreezerAsile = (FreezerAsile) maintainColdSection;
+                try {
+                    FreezerAsile newFreezerasile = oldFreezerAsile.clone();
+                    freezers.add(newFreezerasile);
+                    freezers.remove(oldFreezerAsile);
+                    LOGGER.info("The freezer is replaced");
+                } catch (CloneNotSupportedException cloneNotSupportedException) {
+                    LOGGER.error("The freezer asile " + oldFreezerAsile.asileNum + " could not be replaced");
+                }
+            } catch (ColdStorageNotWorkingException exception) {
+                LOGGER.info(exception.getMessage());
+            }
         }
     }
 
     //Manager will increase the salary of employee by said percentage
     public void increaseSalaryForEmployees(float percentage) {
         for (Employee employee : employees) {
-            employee.getManager().salaryHike(employee, percentage);
+            if (employee.getManager() != null) {
+                employee.getManager().salaryHike(employee, percentage);
+            } else {
+                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage));
+            }
         }
+    }
+
+    // Manager is asked if the employees under them have min wage salary.
+    public void isMinWageMetForEmployeesUnder(Manager manager) {
+        manager.isMinWageMetForEmployees();
     }
 }

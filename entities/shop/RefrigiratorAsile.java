@@ -1,10 +1,14 @@
-package entities;
+package shop;
+
 /*
  * Refrigirator class represents refrigirator asile.
  *
  * @version 1.0 17 Apr 2023
  * @author Ashwini Suresh
  * */
+
+import customexceptions.RefrigiratorAsileNotWorkingException;
+import interfaces.IMaintainColdSection;
 
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -43,7 +47,10 @@ public class RefrigiratorAsile extends Asile implements IMaintainColdSection {
     }
 
     @Override
-    public void maintainTemp() {
+    public void maintainTemp() throws RefrigiratorAsileNotWorkingException {
+        if (temp > 90f) {
+            throw new RefrigiratorAsileNotWorkingException("Refrigirator not working. Please replace");
+        }
         if (temp < IMaintainColdSection.REFRIGIRATOR_MIN_TEMP && temp > IMaintainColdSection.FREEZER_MIN_TEMP) {
             temp = IMaintainColdSection.REFRIGIRATOR_MIN_TEMP;
         }

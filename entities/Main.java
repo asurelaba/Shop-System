@@ -1,10 +1,16 @@
-package entities;
+import interfaces.IMaintainColdSection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+
+import people.*;
+import shop.*;
+
 /*
  * Main class - starting point of the application. Has main method implementation.
  *
@@ -13,6 +19,8 @@ import java.util.Date;
  * */
 
 public class Main {
+
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
@@ -38,18 +46,18 @@ public class Main {
 
         FreezerAsile freezer1 = new FreezerAsile(50, 20, 5, -12.0f);
 
-        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 100, marketFront, supplierFruit, LocalDate.parse("2023-01-01"), 1.2f);
-        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 50, marketFront, supplierFruit, LocalDate.parse("2023-01-04"), 1.5f);
+        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 0, 100, marketFront, supplierFruit, LocalDate.parse("2023-01-01"), 1.2f);
+        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 0, 50, marketFront, supplierFruit, LocalDate.parse("2023-01-04"), 1.5f);
 
-        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 3, 12, asile1, supplierPerishable, LocalDate.parse("2023-02-02"));
+        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 0, 3, 12, asile1, supplierPerishable, LocalDate.parse("2023-02-02"));
 
-        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 10, 10, asile3, supplierCleaning, 1f);
+        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 0, 10, 10, asile3, supplierCleaning, 1f);
 
-        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 30, 30, freezer1, supplierPerishable, LocalDate.parse("2023-07-01"), -10f);
+        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 0, 30, 30, freezer1, supplierPerishable, LocalDate.parse("2023-07-01"), -10f);
 
-        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
-        DiaryItem yogurt = new DiaryItem(51, "yogurt", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-12-10"));
-        DiaryItem cheese = new DiaryItem(52, "Cheese", "Kirkland", 4.0f, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
+        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 0, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
+        DiaryItem yogurt = new DiaryItem(51, "yogurt", "Kirkland", 4.0f, 0, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-12-10"));
+        DiaryItem cheese = new DiaryItem(52, "Cheese", "Kirkland", 4.0f, 0, 50, 50, refrigirator1, supplierPerishable, LocalDate.parse("2023-01-10"));
 
         BillingCounter counter1 = new BillingCounter(1, employee2);
         BillingCounter counter2 = new BillingCounter(2, employee1);
@@ -133,8 +141,8 @@ public class Main {
         employee1.printDetails();
         employee3.printDetails();
 
-        Employee employee4 = new Employee(3, "person3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
-        Employee employee5 = new Employee(3, "perso3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee4 = new Employee(4, "person4", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee5 = new Employee(5, "perso5", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
 
         System.out.println("Employees are same? : " + employee4.equals(employee5));
 
@@ -144,5 +152,33 @@ public class Main {
         shop.printItemsInShop();
 
         shop.increaseSalaryForEmployees(2.0f);
+
+        freezer1.setTemp(90f);
+        shop.addFreezer(freezer1);
+        LOGGER.debug(freezer1.getTemp() + "  " + IMaintainColdSection.REFRIGIRATOR_MIN_TEMP);
+        shop.maintainTempForAllFreezer();
+
+        shop.isMinWageMetForEmployeesUnder(manager1);
+        employee2.setShiftStartTime(Calendar.getInstance().getTime());
+        employee2.setShiftEndTime(Calendar.getInstance().getTime());
+        employee3.setShiftStartTime(Calendar.getInstance().getTime());
+        employee3.setShiftEndTime(Calendar.getInstance().getTime());
+        employee4.setShiftStartTime(Calendar.getInstance().getTime());
+        employee4.setShiftEndTime(Calendar.getInstance().getTime());
+        employee5.setShiftStartTime(Calendar.getInstance().getTime());
+        employee5.setShiftEndTime(Calendar.getInstance().getTime());
+        for (Employee em : manager1.getEmployees()) {
+            LOGGER.debug(em.getName() + " " + em.getShiftEndTime() + " " + em.getShiftStartTime());
+        }
+        manager1.checkEmployeeWorkingHours();
+
+        if (!shop.hasFoodHandlingProcess()) {
+            LOGGER.fatal("The shop will be closed due to food safety violations.");
+        }
+
+
+        ArrayList<Item> supplierFilledOrder = new ArrayList<>();
+        supplierFilledOrder.add(oreo);
+        shop.getInventory().incomingItemsFromSupplier(supplierFilledOrder);
     }
 }

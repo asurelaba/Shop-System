@@ -1,4 +1,4 @@
-package entities;
+package shop;
 
 /*
  * NonPerishableItem represents the items that do not have expiry date.
@@ -9,8 +9,8 @@ package entities;
 public class NonPerishableItem extends Item {
     private float weight;
 
-    public NonPerishableItem(int itemNo, String name, String brand, float price, int quantity, int maxQuantity, Asile asile, Supplier supplier, float weight) {
-        super(itemNo, name, brand, price, quantity, maxQuantity, asile, supplier);
+    public NonPerishableItem(int itemNo, String name, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, float weight) {
+        super(itemNo, name, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier);
         this.weight = weight;
     }
 

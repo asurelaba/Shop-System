@@ -1,4 +1,4 @@
-package entities;
+package shop;
 
 /*
  * Asile class represents asiles and the items they hold.
@@ -21,6 +21,13 @@ public class Asile {
         this.capacity = capacity;
         this.numOfShelves = numOfShelves;
         this.itemsInShelf = new ArrayList<Item>();
+    }
+
+    public Asile(int asileNum, int capacity, int numOfShelves, ArrayList<Item> itemsInShelf) {
+        this.asileNum = asileNum;
+        this.capacity = capacity;
+        this.numOfShelves = numOfShelves;
+        this.itemsInShelf = itemsInShelf;
     }
 
     public int getAsileNum() {
@@ -63,5 +70,10 @@ public class Asile {
     @Override
     public int hashCode() {
         return Objects.hash(asileNum, capacity, numOfShelves);
+    }
+
+    @Override
+    protected Asile clone() throws CloneNotSupportedException {
+        return new Asile(asileNum, capacity, numOfShelves, itemsInShelf);
     }
 }

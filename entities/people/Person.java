@@ -1,4 +1,4 @@
-package entities;
+package people;
 /*
  * Person class represents all personal of the store including customers, employee.
  *

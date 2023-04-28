@@ -1,7 +1,4 @@
-package entities;
-
-import java.util.Calendar;
-import java.util.Date;
+package interfaces;
 
 /*
  * FileTaxes interface is to ensure the shop files taxes every year.

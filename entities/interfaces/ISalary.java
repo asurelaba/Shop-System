@@ -1,4 +1,6 @@
-package entities;
+package interfaces;
+
+import people.Employee;
 
 /*
  * ISalary interface is to ensure the Employee  has salary hikes.
@@ -11,5 +13,5 @@ public interface ISalary {
 
     void salaryHike(Employee employee, float percentage);
 
-    boolean isMinWageMet(Employee employee);
+    void isMinWageMetForEmployees();
 }

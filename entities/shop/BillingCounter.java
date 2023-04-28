@@ -1,5 +1,8 @@
-package entities;
+package shop;
 
+import customexceptions.ItemNotFilledBySupplier;
+import customexceptions.NoMoreItemInAsileException;
+import people.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
@@ -14,7 +17,6 @@ import java.util.Random;
  * */
 
 public class BillingCounter {
-
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;
@@ -44,14 +46,25 @@ public class BillingCounter {
     public Receipt checkout(Shop shop, Customer customer, ArrayList<Item> items) {
         float total = 0;
         for (Item item : items) {
+            try {
+                if (item.quantityInInventory < 2) {
+                    throw new NoMoreItemInAsileException("Restock " + item + "in asile");
+                }
+            } catch (NoMoreItemInAsileException ex) {
+                try {
+                    shop.getInventory().restockItemInAsile(item);
+                } catch (ItemNotFilledBySupplier itemNotFilledBySupplier) {
+                    shop.placeOrder();
+                }
+            }
             if (item.getClass() == FreshProduceItem.class) {
                 FreshProduceItem freshProduceItem = (FreshProduceItem) item;
                 total += calculatePrice(getWeightOfItemInCart(item), freshProduceItem.getPricePerPound());
-                item.setQuantity(item.quantity - 1);
+                item.setQuantityInAsile(item.getQuantityInAsile() - 1);
                 continue;
             }
             total += item.getPrice();
-            item.setQuantity(item.quantity - 1);
+            item.setQuantityInAsile(item.getQuantityInAsile() - 1);
         }
 
         Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1, total, employee.getName(), items, Calendar.getInstance().getTime(), this);

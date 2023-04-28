@@ -1,5 +1,12 @@
-package entities;
+package shop;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /*
@@ -10,6 +17,7 @@ import java.util.ArrayList;
  * */
 
 public class Supplier {
+    private static final Logger LOGGER = LogManager.getLogger(Inventory.class);
     private int supplierNum;
     private String supplierName;
     private ArrayList<Item> items;
@@ -40,8 +48,16 @@ public class Supplier {
         items.add(item);
     }
 
+    public void printOrderToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(supplierName + " order"));) {
+            writer.write(items.toString());
+        } catch (IOException ioException) {
+            LOGGER.error("Writing order to file failed...");
+        }
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return ("Supplier Name : " + supplierName + "\nSupplier Id : " + supplierNum + "\n No. of items ordered: " + items.size());
     }
 }

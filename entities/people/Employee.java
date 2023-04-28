@@ -1,4 +1,11 @@
-package entities;
+package people;
+
+import interfaces.IWorkingShift;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 /*
  * Employee class represents all employees of the store.
@@ -7,12 +14,14 @@ package entities;
  * @author Ashwini Suresh
  * */
 public class Employee extends Person implements IWorkingShift {
-
+    private static final Logger LOGGER = LogManager.getLogger(Employee.class);
     protected static byte workHours;
     protected int employeeId;
     protected String role;
     protected float salary;
     protected Manager manager;
+    protected Date shiftStartTime;
+    protected Date shiftEndTime;
 
     static {
         workHours = 8;
@@ -32,6 +41,7 @@ public class Employee extends Person implements IWorkingShift {
         this.role = role;
         this.salary = salary;
         this.manager = manager;
+        manager.getEmployees().add(this);
     }
 
     public Employee(Employee employee) {
@@ -74,6 +84,28 @@ public class Employee extends Person implements IWorkingShift {
         this.manager = manager;
     }
 
+    public Date getShiftStartTime() {
+        return shiftStartTime;
+    }
+
+    public void setShiftStartTime(Date shiftStartTime) {
+        LOGGER.debug("Shift start time set");
+        this.shiftStartTime = shiftStartTime;
+    }
+
+    public Date getShiftEndTime() {
+        return shiftEndTime;
+    }
+
+    public void setShiftEndTime(Date shiftEndTime) {
+        LOGGER.debug("Shift end time set");
+        this.shiftEndTime = shiftEndTime;
+    }
+
+    public int getWorkedHoursForTheDay() {
+        return shiftEndTime.compareTo(shiftStartTime);
+    }
+
     @Override
     public void printDetails() {
         System.out.println("Employee Id:" + employeeId + "\n Name: " + name + "\nAddress: " + address + "\nPhone: " + phone + "\n Role: " + role);
@@ -84,6 +116,12 @@ public class Employee extends Person implements IWorkingShift {
 
     @Override
     public void setWorkingHours() {
-        System.out.println("The employee cannot work for more than " + workHours + " hrs");
+        LOGGER.info("The employee cannot work for more than " + workHours + " hrs");
+    }
+
+    public void checkWorkingHours() {
+        if (getWorkedHoursForTheDay() > 8) {
+            LOGGER.info("Employee " + name + "(" + employeeId + ") is over worked!!!!");
+        }
     }
 }
