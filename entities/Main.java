@@ -19,10 +19,10 @@ import shop.*;
  * */
 
 public class Main {
+
     private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
-
-
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
         Supplier supplierVeggie = new Supplier(2, "SupplierVeggie");
         Supplier supplierCleaning = new Supplier(3, "SupplierCleaning");
