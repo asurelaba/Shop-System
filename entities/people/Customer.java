@@ -1,5 +1,7 @@
 package people;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import shop.Receipt;
 
 /*
@@ -9,6 +11,7 @@ import shop.Receipt;
  * @author Ashwini Suresh
  * */
 public class Customer extends Person {
+    private static final Logger LOGGER = LogManager.getLogger(Customer.class);
     private Receipt receipt;
 
     public Customer(int personId, String name, String address, String phone, Receipt receipt) {
@@ -30,7 +33,7 @@ public class Customer extends Person {
 
     @Override
     public void printDetails() {
-        System.out.println("Customer Name: " + name);
-        System.out.println("latest Receipt : " + receipt);
+        LOGGER.info("Customer Name: " + name);
+        LOGGER.info("latest Receipt : " + receipt);
     }
 }

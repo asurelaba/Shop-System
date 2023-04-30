@@ -1,10 +1,12 @@
 package shop;
 
-import customexceptions.ItemNotFilledBySupplier;
+import customexceptions.ItemNotFilledBySupplierException;
 import customexceptions.NoMoreItemInAsileException;
 import people.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 /*
@@ -16,7 +18,7 @@ import java.util.Random;
  * 04/18/2023 added checkout method and change array receipts to ArrayList
  * */
 
-public class BillingCounter {
+public class BillingCounter implements Comparable {
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;
@@ -53,7 +55,7 @@ public class BillingCounter {
             } catch (NoMoreItemInAsileException ex) {
                 try {
                     shop.getInventory().restockItemInAsile(item);
-                } catch (ItemNotFilledBySupplier itemNotFilledBySupplier) {
+                } catch (ItemNotFilledBySupplierException itemNotFilledBySupplier) {
                     shop.placeOrder();
                 }
             }
@@ -88,5 +90,25 @@ public class BillingCounter {
             return random.nextFloat(10);
         }
         return 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingCounter that = (BillingCounter) o;
+        return counterNum == that.counterNum && Objects.equals(employee, that.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(counterNum, employee);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        BillingCounter counter = (BillingCounter) o;
+        if (this == counter) return 0;
+        return (counterNum == counter.counterNum && Objects.equals(employee, counter.employee)) ? 0 : this.hashCode() - counter.hashCode();
     }
 }

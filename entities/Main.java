@@ -1,12 +1,10 @@
+import customlinkedlist.LinkedList;
 import interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import people.*;
 import shop.*;
@@ -70,18 +68,18 @@ public class Main {
         Customer customer3 = new Customer(9, "person9", "efg 1234", "12312318777");
         Customer customer4 = new Customer(10, "person10", "ght 1234", "12312312766");
 
-        ArrayList<Item> inventoryArr = new ArrayList<Item>();
-        //System.out.println(iceCream.findMyItem());
-        inventoryArr.add(iceCream);
-        inventoryArr.add(orange);
-        //System.out.println(lyzol.findMyItem());
-        inventoryArr.add(lyzol);
-        //System.out.println(milk.findMyItem());
-        inventoryArr.add(oreo);
-        inventoryArr.add(milk);
-        inventoryArr.add(yogurt);
-        inventoryArr.add(cheese);
+        TreeMap<Integer, Item> inventoryArr = new TreeMap<>();
+        inventoryArr.put(iceCream.getItemNo(), iceCream);
+        inventoryArr.put(orange.getItemNo(), orange);
+        inventoryArr.put(lyzol.getItemNo(), lyzol);
+        inventoryArr.put(oreo.getItemNo(), oreo);
+        inventoryArr.put(oreo.getItemNo(), oreo);
+        inventoryArr.put(milk.getItemNo(), milk);
+        inventoryArr.put(yogurt.getItemNo(), yogurt);
+        inventoryArr.put(cheese.getItemNo(), cheese);
         Inventory inventory = new Inventory(inventoryArr);
+        inventory.printInventory();
+        LOGGER.info(milk.findMyItem());
 
         //creating the shop with inventory, employees and asiles
         Shop shop = new Shop("Costco");
@@ -112,16 +110,19 @@ public class Main {
 
         shop.addBillingCounter(counter1);
         shop.addBillingCounter(counter2);
+        shop.addBillingCounter(counter2);
+        BillingCounter counter3 = new BillingCounter(3, employee1);
+        shop.addBillingCounter(counter3);
+        LOGGER.debug("Counters in the shop " + shop.getBillingCounters());
 
         shop.addCustomer(customer1);
-
 
         //customer adding items in the cart and checkout
         ArrayList<Item> itemsInCart = new ArrayList<Item>();
         itemsInCart.add(iceCream);
         itemsInCart.add(orange);
         customer1.setReceipt(counter1.checkout(shop, customer1, itemsInCart));
-        System.out.println(customer1.getReceipt());
+        LOGGER.info(customer1.getReceipt());
         //check for the stock and order from supplier if stock is low.
         if (shop.getInventory().needToRestock()) {
             shop.placeOrder();
@@ -131,7 +132,7 @@ public class Main {
         itemsInCart2.add(iceCream);
         itemsInCart2.add(oreo);
         customer2.setReceipt(counter2.checkout(shop, customer2, itemsInCart2));
-        System.out.println(customer2.getReceipt());
+        LOGGER.info(customer2.getReceipt());
 
         shop.getInventory().needToRestock();
 
@@ -144,11 +145,11 @@ public class Main {
         Employee employee4 = new Employee(4, "person4", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
         Employee employee5 = new Employee(5, "perso5", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
 
-        System.out.println("Employees are same? : " + employee4.equals(employee5));
+        LOGGER.debug("Employees are same? : " + employee4.equals(employee5));
 
-        System.out.println(refrigirator1);
+        LOGGER.debug(refrigirator1);
         shop.removePerishableBeforeExpiry();
-        System.out.println(refrigirator1);
+        LOGGER.debug(refrigirator1);
         shop.printItemsInShop();
 
         shop.increaseSalaryForEmployees(2.0f);
@@ -176,9 +177,30 @@ public class Main {
             LOGGER.fatal("The shop will be closed due to food safety violations.");
         }
 
-
         ArrayList<Item> supplierFilledOrder = new ArrayList<>();
         supplierFilledOrder.add(oreo);
         shop.getInventory().incomingItemsFromSupplier(supplierFilledOrder);
+
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        //list.insert(10,25);
+        list.insert(1, 25);
+        //list.remove(25);
+        LOGGER.info(list + " " + list.getSize());
+        //list.remove(10);
+        LOGGER.debug(list);
+        list.add(5);
+        LOGGER.debug("element at index 1 :: " + list.get(3));
+        LOGGER.debug(list + " " + list.getSize());
+
+        LinkedList<Item> itemList = new LinkedList<>();
+        itemList.add(orange);
+        itemList.add(oreo);
+        itemList.insert(1, yogurt);
+        itemList.add(milk);
+        itemList.add(iceCream);
+        LOGGER.info("List of items ::: " + itemList);
     }
 }

@@ -1,7 +1,7 @@
 package shop;
 
 import customexceptions.InvalidBestBeforeException;
-import customexceptions.ItemNotFilledBySupplier;
+import customexceptions.ItemNotFilledBySupplierException;
 import interfaces.ISupplyChain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /*
  * Inventory class holds the list of all the items in the store.
@@ -20,48 +22,39 @@ import java.util.Calendar;
  * */
 public class Inventory implements ISupplyChain {
     private static final Logger LOGGER = LogManager.getLogger(Inventory.class);
-    private ArrayList<Item> items;
+    //private ArrayList<Item> items;
+    private TreeMap<Integer, Item> items;
 
-    public Inventory(ArrayList<Item> items) {
+    public Inventory(TreeMap<Integer, Item> items) {
         this.items = items;
     }
 
     public Inventory() {
-        items = new ArrayList<>();
+        items = new TreeMap<>();
     }
 
-    public ArrayList<Item> getItems() {
+    public TreeMap<Integer, Item> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
-    }
-
     public void addItem(Item item) {
-        items.add(item);
+        items.put(item.itemNo, item);
     }
 
     public void removeItem(Item item) {
-        items.remove(item);
+        items.remove(item.itemNo);
     }
 
     public void addItemToAsile(Shop shop) {
-        for (Item item : items) {
-            for (Asile asile : shop.getAsiles()) {
-                System.out.println(" item " + item.getItemName() + item.getAsile() + " asile " + asile.getAsileNum());
-                if (item.getAsile().getAsileNum() == asile.getAsileNum()) {
-                    asile.getItemsInShelf().add(item);
-                    System.out.println("added item " + item.getItemName() + " to " + asile.getAsileNum());
-                }
-            }
+        for (Item item : items.values()) {
+            item.getAsile().itemsInShelf.add(item);
         }
     }
 
     @Override
     public boolean needToRestock() {
         boolean shouldRestock = false;
-        for (Item item : items) {
+        for (Item item : items.values()) {
             if (item.getQuantityInAsile() < 5) {
                 //add items to supplier order list
                 item.getSupplier().addItem(item);
@@ -73,21 +66,21 @@ public class Inventory implements ISupplyChain {
 
     @Override
     public void printInventory() {
-        System.out.println("------Inventory-----------");
-        System.out.println("Item Name          Quantity");
-        for (Item item : items) {
-            System.out.println(item.getItemName() + " " + item.getQuantityInInventory());
+        LOGGER.info("------Inventory-----------");
+        LOGGER.info("Item Name          Quantity");
+        for (Item item : items.values()) {
+            LOGGER.info(item.getItemName() + " " + item.getQuantityInInventory());
         }
     }
 
-    public void restockItemInAsile(Item item) throws ItemNotFilledBySupplier {
+    public void restockItemInAsile(Item item) throws ItemNotFilledBySupplierException {
         if (item.quantityInInventory != 0 && item.quantityInInventory > 10) {
             item.setQuantityInAsile(item.quantityInInventory - 10);
         } else if (item.quantityInInventory < 10) {
             LOGGER.warn("Item " + +item.itemNo + " " + item.getItemName() + "stock is low in Inventory. Adding Item to the supplier");
         } else {
             item.getSupplier().addItem(item);
-            throw new ItemNotFilledBySupplier(item.itemNo + "  " + item.itemName + "is not filled by supplier. Please reorder");
+            throw new ItemNotFilledBySupplierException(item.itemNo + "  " + item.itemName + "is not filled by supplier. Please reorder");
         }
     }
 

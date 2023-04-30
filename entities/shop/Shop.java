@@ -11,8 +11,7 @@ import people.Customer;
 import people.Employee;
 import people.Manager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 
 /*
  * Shop class represents all the entities of the shop.
@@ -21,17 +20,17 @@ import java.util.Calendar;
  * @author Ashwini Suresh
  * */
 public final class Shop implements IFoodSafetyChecks, IFileTaxes {
-    private final String shopName;
+    private final String SHOPNAME;
     private static final Logger LOGGER;
     private ArrayList<Employee> employees;
     private Inventory inventory;
-    private ArrayList<Asile> asiles;
+    private HashMap<Integer, Asile> asiles;
     private ArrayList<MarketAsile> markets;
     private ArrayList<FreezerAsile> freezers;
     private ArrayList<RefrigiratorAsile> refrigirators;
     private ArrayList<Customer> customers;
-    private ArrayList<Supplier> suppliers;
-    private ArrayList<BillingCounter> billingCounters;
+    private LinkedList<Supplier> suppliers;
+    private TreeSet<BillingCounter> billingCounters;
     private double netGain;
     private static String closedOn;
 
@@ -50,20 +49,20 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public Shop(String shopName) {
-        this.shopName = shopName;
+        this.SHOPNAME = shopName;
         this.employees = new ArrayList<Employee>();
-        this.asiles = new ArrayList<Asile>();
-        this.billingCounters = new ArrayList<BillingCounter>();
-        this.customers = new ArrayList<Customer>();
-        this.freezers = new ArrayList<FreezerAsile>();
-        this.suppliers = new ArrayList<Supplier>();
-        this.markets = new ArrayList<MarketAsile>();
+        this.asiles = new HashMap<>();
+        this.billingCounters = new TreeSet<>();
+        this.customers = new ArrayList<>();
+        this.freezers = new ArrayList<>();
+        this.suppliers = new LinkedList<>();
+        this.markets = new ArrayList<>();
         this.inventory = new Inventory();
-        this.refrigirators = new ArrayList<RefrigiratorAsile>();
+        this.refrigirators = new ArrayList<>();
     }
 
-    public Shop(String shopName, ArrayList<Employee> employees, Inventory inventory, ArrayList<Asile> asiles, ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers, ArrayList<RefrigiratorAsile> refrigirators, ArrayList<Customer> customers, ArrayList<Supplier> suppliers, ArrayList<BillingCounter> billingCounters) {
-        this.shopName = shopName;
+    public Shop(String shopName, ArrayList<Employee> employees, Inventory inventory, HashMap<Integer, Asile> asiles, ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers, ArrayList<RefrigiratorAsile> refrigirators, ArrayList<Customer> customers, LinkedList<Supplier> suppliers, TreeSet<BillingCounter> billingCounters) {
+        this.SHOPNAME = shopName;
         this.employees = employees;
         this.inventory = inventory;
         this.asiles = asiles;
@@ -77,14 +76,14 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public String getShopName() {
-        return shopName;
+        return SHOPNAME;
     }
 
     public double getNetGain() {
         return netGain;
     }
 
-    public ArrayList<Asile> getAsiles() {
+    public HashMap<Integer, Asile> getAsiles() {
         return asiles;
     }
 
@@ -119,7 +118,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public void addAsile(Asile asile) {
-        asiles.add(asile);
+        asiles.put(asile.asileNum, asile);
     }
 
     public void removeAsile(Asile asile) {
@@ -166,6 +165,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         billingCounters.add(billingCounter);
     }
 
+    public TreeSet<BillingCounter> getBillingCounters() {
+        return billingCounters;
+    }
+
     public void removeBillingCounter(BillingCounter billingCounter) {
         billingCounters.remove(billingCounter);
     }
@@ -190,10 +193,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public void printItemsInShop() {
-        LOGGER.info("Shop Name: " + shopName);
+        LOGGER.info("Shop Name: " + SHOPNAME);
         LOGGER.info("we are open Monday to Saturday 10 AM to 8 PM. Holidays:  " + closedOn);
         LOGGER.info("-----Items in the shop--------");
-        for (Asile asile : asiles) {
+        for (Asile asile : asiles.values()) {
             for (Item item : asile.getItemsInShelf()) {
                 LOGGER.info(item.getItemNo() + " " + item.getItemName());
             }
@@ -222,7 +225,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     //ask inventory to check through all items for expiry
     @Override
     public void removePerishableBeforeExpiry() {
-        for (Asile asile : asiles) {
+        for (Asile asile : asiles.values()) {
             if (asile.getClass() == FreezerAsile.class) {
                 ((FreezerAsile) asile).removePerishableBeforeExpiry();
             } else if (asile.getClass() == RefrigiratorAsile.class) {

@@ -70,11 +70,13 @@ public class Receipt {
 
     @Override
     public String toString() {
-        StringBuffer printReceipt = new StringBuffer(receiptNum + "\n" + shoppedDate + "\n" + "served by: " + employeeName + "\n");
+        StringBuffer printReceipt = new StringBuffer("\n-----------------------------------\n");
+        printReceipt.append(receiptNum + "\n" + shoppedDate + "\n" + "served by: " + employeeName + "\n");
         for (Item item : items) {
             printReceipt.append(item.getItemName() + "      " + item.getPrice() + "\n");
         }
         printReceipt.append("Total:   " + total);
+        printReceipt.append("\n-----------------------------------\n");
         return printReceipt.toString();
     }
 
