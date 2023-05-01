@@ -3,7 +3,9 @@ package customlinkedlist;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class LinkedList<T> {
+import java.util.Iterator;
+
+public class LinkedList<T> implements Iterable<T> {
     private static final Logger LOGGER = LogManager.getLogger(LinkedList.class);
     Node<T> head;
     Node<T> tail;
@@ -94,5 +96,10 @@ public class LinkedList<T> {
             current = current.getNodeNext();
         }
         return listToString.toString();
+    }
+
+    @Override
+    public  NodeIterator<T> iterator() {
+        return new NodeIterator<T>(head);
     }
 }

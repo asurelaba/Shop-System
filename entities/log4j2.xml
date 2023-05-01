@@ -9,14 +9,14 @@
         </File>
     </Appenders>
     <Loggers>
-        <Root level="DEBUG">
+        <Root level="INFO">
             <AppenderRef ref="Console" />
             <AppenderRef ref="LogFile" />
         </Root>
         <logger name="shop" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
-        <logger name="people" level="ERROR" additivity="false">
+        <logger name="people" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
     </Loggers>

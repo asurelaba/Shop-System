@@ -2,6 +2,8 @@ package shop;
 
 import customexceptions.ItemNotFilledBySupplierException;
 import customexceptions.NoMoreItemInAsileException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import people.*;
 
 import java.util.ArrayList;
@@ -18,7 +20,8 @@ import java.util.Random;
  * 04/18/2023 added checkout method and change array receipts to ArrayList
  * */
 
-public class BillingCounter implements Comparable {
+public class BillingCounter implements Comparable<BillingCounter> {
+    private static final Logger LOGGER = LogManager.getLogger(BillingCounter.class);
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;
@@ -49,7 +52,7 @@ public class BillingCounter implements Comparable {
         float total = 0;
         for (Item item : items) {
             try {
-                if (item.quantityInInventory < 2) {
+                if (item.quantityInAsile < 2) {
                     throw new NoMoreItemInAsileException("Restock " + item + "in asile");
                 }
             } catch (NoMoreItemInAsileException ex) {
@@ -68,11 +71,10 @@ public class BillingCounter implements Comparable {
             total += item.getPrice();
             item.setQuantityInAsile(item.getQuantityInAsile() - 1);
         }
-
         Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1, total, employee.getName(), items, Calendar.getInstance().getTime(), this);
         receipts.add(receipt);
         shop.updateNetGain(total);
-        System.out.println("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
+        LOGGER.info("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
         return receipt;
     }
 
@@ -106,9 +108,15 @@ public class BillingCounter implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        BillingCounter counter = (BillingCounter) o;
-        if (this == counter) return 0;
-        return (counterNum == counter.counterNum && Objects.equals(employee, counter.employee)) ? 0 : this.hashCode() - counter.hashCode();
+    public int compareTo(BillingCounter that) {
+        return ((Integer)counterNum).compareTo(that.counterNum);
+    }
+
+    @Override
+    public String toString() {
+        return "BillingCounter{" +
+                "counterNum=" + counterNum +
+                ", employee=" + employee +
+                '}';
     }
 }

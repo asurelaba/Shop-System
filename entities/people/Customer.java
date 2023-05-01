@@ -36,4 +36,9 @@ public class Customer extends Person {
         LOGGER.info("Customer Name: " + name);
         LOGGER.info("latest Receipt : " + receipt);
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "personId=" + personId + ", name='" + name + '\'' + ", address='" + address + '\'' + ", phone='" + phone + '\'' + '}';
+    }
 }

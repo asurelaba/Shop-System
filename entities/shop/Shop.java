@@ -28,7 +28,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     private ArrayList<MarketAsile> markets;
     private ArrayList<FreezerAsile> freezers;
     private ArrayList<RefrigiratorAsile> refrigirators;
-    private ArrayList<Customer> customers;
+    private customlinkedlist.LinkedList<Customer> customers;
     private LinkedList<Supplier> suppliers;
     private TreeSet<BillingCounter> billingCounters;
     private double netGain;
@@ -53,7 +53,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         this.employees = new ArrayList<Employee>();
         this.asiles = new HashMap<>();
         this.billingCounters = new TreeSet<>();
-        this.customers = new ArrayList<>();
+        this.customers = new customlinkedlist.LinkedList<>();
         this.freezers = new ArrayList<>();
         this.suppliers = new LinkedList<>();
         this.markets = new ArrayList<>();
@@ -61,7 +61,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         this.refrigirators = new ArrayList<>();
     }
 
-    public Shop(String shopName, ArrayList<Employee> employees, Inventory inventory, HashMap<Integer, Asile> asiles, ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers, ArrayList<RefrigiratorAsile> refrigirators, ArrayList<Customer> customers, LinkedList<Supplier> suppliers, TreeSet<BillingCounter> billingCounters) {
+    public Shop(String shopName, ArrayList<Employee> employees, Inventory inventory, HashMap<Integer, Asile> asiles, ArrayList<MarketAsile> markets, ArrayList<FreezerAsile> freezers, ArrayList<RefrigiratorAsile> refrigirators, customlinkedlist.LinkedList<Customer> customers, LinkedList<Supplier> suppliers, TreeSet<BillingCounter> billingCounters) {
         this.SHOPNAME = shopName;
         this.employees = employees;
         this.inventory = inventory;
@@ -105,6 +105,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
 
     public void addEmployee(Employee employee) {
         employees.add(employee);
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
     }
 
     public void printEmployees() {
@@ -152,6 +156,16 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public void addCustomer(Customer customer) {
         customers.add(customer);
     }
+
+    public void removeCustomer(Customer customer) {
+        customers.remove(customer);
+        LOGGER.info("Customer " + customer + "is removed from the list. ");
+    }
+
+    public customlinkedlist.LinkedList<Customer> getCustomers() {
+        return customers;
+    }
+
 
     public void addSupplier(Supplier supplier) {
         suppliers.add(supplier);
@@ -282,5 +296,6 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     // Manager is asked if the employees under them have min wage salary.
     public void isMinWageMetForEmployeesUnder(Manager manager) {
         manager.isMinWageMetForEmployees();
+        LOGGER.info("Min wage check is completed by : " + manager);
     }
 }
