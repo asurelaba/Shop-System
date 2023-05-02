@@ -1,11 +1,7 @@
-import customlinkedlist.LinkedList;
 import datasetup.DataProvider;
-import interfaces.IMaintainColdSection;
-import interfaces.ISalary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.time.LocalDate;
 import java.util.*;
 
 import people.*;
@@ -19,13 +15,11 @@ import shop.*;
  * */
 
 public class Main {
-
     private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
-    //private static Shop shop = new Shop("Costco");
     private static DataProvider dataProvider = new DataProvider();
 
     public static void main(String[] args) {
-        //creating the shop with inventory, employees and asiles
+        //creating the shop with predefined data.
         Shop shop = dataProvider.setUpShop("Costco");
 
         //Customer shops
