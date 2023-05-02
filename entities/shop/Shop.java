@@ -166,6 +166,15 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         return customers;
     }
 
+    public  void displayCustomers() {
+        LOGGER.info(" :::::::::::::::::::::::Customers of the shop ::::::::::::::::: ");
+        LOGGER.info("There are " + customers.getSize() + " regular customers for " + SHOPNAME);
+        LOGGER.info("Customer Details::");
+        for (Customer customer : getCustomers()) {
+            LOGGER.info(customer);
+        }
+    }
+
 
     public void addSupplier(Supplier supplier) {
         suppliers.add(supplier);
