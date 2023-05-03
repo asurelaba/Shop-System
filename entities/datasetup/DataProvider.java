@@ -53,7 +53,7 @@ public class DataProvider {
         return shop;
     }
 
-    public void addPredefinedAsiles() {
+    private void addPredefinedAsiles() {
         Asile asile1 = new Asile(1, 20, 4);
         Asile asile2 = new Asile(2, 20, 4);
         Asile asile3 = new Asile(3, 20, 4);
@@ -90,7 +90,7 @@ public class DataProvider {
 
     }
 
-    public void addPredefinedBillingCounters() {
+    private void addPredefinedBillingCounters() {
         BillingCounter counter1 = new BillingCounter(1, shop.getEmployees().get(2));
         BillingCounter counter2 = new BillingCounter(2, shop.getEmployees().get(1));
         BillingCounter counter3 = new BillingCounter(3, shop.getEmployees().get(3));
@@ -101,7 +101,7 @@ public class DataProvider {
         LOGGER.info("Counters are added to the shop " + shop.getBillingCounters());
     }
 
-    public void addPredefinedItemsToInventory() {
+    private void addPredefinedItemsToInventory() {
         FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 0, 100, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-01"), 1.2f);
         FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 0, 50, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-04"), 1.5f);
         PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 0, 3, 12, asileHashMap.get("asile1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-02-02"));
@@ -133,7 +133,7 @@ public class DataProvider {
         shop.printItemsInShop();
     }
 
-    public void addPreDefinedCustomers() {
+    private void addPreDefinedCustomers() {
         Customer customer1 = new Customer(7, "person7", "xyz 1234", "1231231234");
         Customer customer2 = new Customer(8, "person8", "abc 1234", "12312312567");
         Customer customer3 = new Customer(9, "person9", "efg 1234", "12312318777");
@@ -151,7 +151,7 @@ public class DataProvider {
         LOGGER.info("Regular customers are added to the shop. ");
     }
 
-    public void addPreDefinedSuppliers() {
+    private void addPreDefinedSuppliers() {
         Supplier supplierFruit = new Supplier(1, "SupplierFruit");
         Supplier supplierVeggie = new Supplier(2, "SupplierVeggie");
         Supplier supplierCleaning = new Supplier(3, "SupplierCleaning");
@@ -168,7 +168,7 @@ public class DataProvider {
         LOGGER.info("Suppliers are added to the Shop");
     }
 
-    public void addPreDefinedEmployees() {
+    private void addPreDefinedEmployees() {
         Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234", 111, "Manager", 10000);
         Manager manager1 = new Manager(employee1, "store lock \n leave approval");
         Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567", 222, "Billing", 1000, manager1);
