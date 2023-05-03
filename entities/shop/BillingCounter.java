@@ -1,10 +1,14 @@
 package shop;
 
-import customexceptions.ItemNotFilledBySupplier;
+import customexceptions.ItemNotFilledBySupplierException;
 import customexceptions.NoMoreItemInAsileException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import people.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 /*
@@ -16,7 +20,8 @@ import java.util.Random;
  * 04/18/2023 added checkout method and change array receipts to ArrayList
  * */
 
-public class BillingCounter {
+public class BillingCounter implements Comparable<BillingCounter> {
+    private static final Logger LOGGER = LogManager.getLogger(BillingCounter.class);
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;
@@ -47,13 +52,13 @@ public class BillingCounter {
         float total = 0;
         for (Item item : items) {
             try {
-                if (item.quantityInInventory < 2) {
+                if (item.quantityInAsile < 2) {
                     throw new NoMoreItemInAsileException("Restock " + item + "in asile");
                 }
             } catch (NoMoreItemInAsileException ex) {
                 try {
                     shop.getInventory().restockItemInAsile(item);
-                } catch (ItemNotFilledBySupplier itemNotFilledBySupplier) {
+                } catch (ItemNotFilledBySupplierException itemNotFilledBySupplier) {
                     shop.placeOrder();
                 }
             }
@@ -66,11 +71,10 @@ public class BillingCounter {
             total += item.getPrice();
             item.setQuantityInAsile(item.getQuantityInAsile() - 1);
         }
-
         Receipt receipt = new Receipt(shop.getTotalReceiptsCount() + 1, total, employee.getName(), items, Calendar.getInstance().getTime(), this);
         receipts.add(receipt);
         shop.updateNetGain(total);
-        System.out.println("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
+        LOGGER.info("Thanks for shopping at " + shop.getShopName() + ". Amount due: " + total);
         return receipt;
     }
 
@@ -88,5 +92,31 @@ public class BillingCounter {
             return random.nextFloat(10);
         }
         return 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingCounter that = (BillingCounter) o;
+        return counterNum == that.counterNum && Objects.equals(employee, that.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(counterNum, employee);
+    }
+
+    @Override
+    public int compareTo(BillingCounter that) {
+        return ((Integer)counterNum).compareTo(that.counterNum);
+    }
+
+    @Override
+    public String toString() {
+        return "BillingCounter{" +
+                "counterNum=" + counterNum +
+                ", employee=" + employee +
+                '}';
     }
 }

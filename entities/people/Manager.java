@@ -59,9 +59,7 @@ public class Manager extends Employee implements ISalary {
                 LOGGER.warn(minWageNotMetException.getMessage() + " Increasing the salary...");
                 employee.setSalary(ISalary.MIN_WAGE_PER_HOUR);
             }
-
         }
-
     }
 
     public void checkEmployeeWorkingHours(){

@@ -2,4 +2,5 @@
 
 Class Diagram of the Retail Shop System.
 
-![Class Diagram](https://user-images.githubusercontent.com/130489863/232657675-e717a33e-02dc-4234-a021-09154cc50e6d.svg)
+
+![Class Diagram](https://user-images.githubusercontent.com/130489863/235337733-20876833-77fb-4c9a-8e88-e5eab29d2f7d.svg)

@@ -84,7 +84,7 @@ public class FreezerAsile extends Asile implements IMaintainColdSection {
     public void maintainTemp() throws FreezerAsileNotWorkingException {
         LOGGER.debug("in maintainTemp  " + temp);
         if (temp > IMaintainColdSection.REFRIGIRATOR_MIN_TEMP) {
-            System.out.println("Freezer " + asileNum + "is not working. Please replace");
+            LOGGER.error("Freezer " + asileNum + "is not working. Please replace");
             throw new FreezerAsileNotWorkingException("Freezer " + asileNum + "is not working. Please replace");
         }
         if (temp > IMaintainColdSection.FREEZER_MIN_TEMP) {

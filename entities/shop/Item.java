@@ -133,4 +133,14 @@ public abstract class Item {
     public final int hashCode() {
         return Objects.hash(itemNo, itemName, brand);
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "itemNo=" + itemNo +
+                ", itemName='" + itemName + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
