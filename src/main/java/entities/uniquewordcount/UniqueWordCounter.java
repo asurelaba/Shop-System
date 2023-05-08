@@ -11,13 +11,22 @@ import java.util.*;
 
 public class UniqueWordCounter {
     public static final Logger LOGGER = LogManager.getLogger(UniqueWordCounter.class);
-    public static void wordCount(File file) throws IOException {
-        List<String> lines = FileUtils.readLines(file);
-        LOGGER.info("File contents \n" + lines + " " + lines.size());
-        Set<String> stringSet = new HashSet<>();
-        for (String s : lines) {
-            stringSet.addAll(Arrays.asList(StringUtils.split(s.toLowerCase(), ' ')));
+
+    public static void wordCount(File file) {
+        try {
+            List<String> wordList = prepWordList(FileUtils.readFileToString(file));
+            Set<String> stringSet = new HashSet<>(wordList);
+            String writeStringToFile = "There are " + stringSet.size() + " unique words in the string.\n" + stringSet;
+            FileUtils.writeStringToFile(new File("uniqueWords.txt"), writeStringToFile);
+            LOGGER.info("Unique word count Written to file: " + file.getName() + "\n Contents: " +  writeStringToFile);
+        } catch (IOException ioException) {
+            LOGGER.error(ioException.getMessage());
         }
-        FileUtils.writeStringToFile(new File("uniqueWords.txt"), "There are " + stringSet.size() + " unique words in the string.\n" + stringSet);
+    }
+
+    private static List<String> prepWordList(String rawContentFromFile) {
+        String strWithoutLines = rawContentFromFile.replaceAll(System.lineSeparator(), " ");
+        String strWithoutSpecialChar = strWithoutLines.replaceAll("[^\\w@ ]", "");
+        return Arrays.asList(StringUtils.split(strWithoutSpecialChar.toLowerCase(), " "));
     }
 }

@@ -86,10 +86,6 @@ public class Main {
         shop.displayCustomers();
         LOGGER.info(" customers at position 1: " + shop.getCustomers().get(1));
 
-        try {
-            UniqueWordCounter.wordCount(new File("src/main/resources/count_unique_words_input.txt"));
-        } catch (IOException ioException) {
-            LOGGER.error(ioException.getMessage());
-        }
+        UniqueWordCounter.wordCount(new File("src/main/resources/count_unique_words_input.txt"));
     }
 }
