@@ -7,10 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class UniqueWordCounter {
     public static final Logger LOGGER = LogManager.getLogger(UniqueWordCounter.class);
@@ -19,7 +16,7 @@ public class UniqueWordCounter {
         LOGGER.info("File contents \n" + lines + " " + lines.size());
         Set<String> stringSet = new HashSet<>();
         for (String s : lines) {
-            stringSet.addAll(Arrays.asList(StringUtils.split(s, ' ')));
+            stringSet.addAll(Arrays.asList(StringUtils.split(s.toLowerCase(), ' ')));
         }
         FileUtils.writeStringToFile(new File("uniqueWords.txt"), "There are " + stringSet.size() + " unique words in the string.\n" + stringSet);
     }
