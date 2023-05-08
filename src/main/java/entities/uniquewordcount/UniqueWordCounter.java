@@ -18,7 +18,7 @@ public class UniqueWordCounter {
             Set<String> stringSet = new HashSet<>(wordList);
             String writeStringToFile = "There are " + stringSet.size() + " unique words in the string.\n" + stringSet;
             FileUtils.writeStringToFile(new File("uniqueWords.txt"), writeStringToFile);
-            LOGGER.info("Unique word count Written to file: " + file.getName() + "\n Contents: " +  writeStringToFile);
+            LOGGER.info("Unique word count Written to file: " + file.getName() + "\n Contents: " + writeStringToFile);
         } catch (IOException ioException) {
             LOGGER.error(ioException.getMessage());
         }
