@@ -1,9 +1,12 @@
 package entities;
 
 import entities.datasetup.DataProvider;
+import entities.uniquewordcount.UniqueWordCounter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import entities.people.*;
@@ -82,5 +85,7 @@ public class Main {
         LOGGER.info(" customers after insert at position 2");
         shop.displayCustomers();
         LOGGER.info(" customers at position 1: " + shop.getCustomers().get(1));
+
+        UniqueWordCounter.wordCount(new File("src/main/resources/count_unique_words_input.txt"));
     }
 }
