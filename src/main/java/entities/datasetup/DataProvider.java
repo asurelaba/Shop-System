@@ -2,6 +2,7 @@ package entities.datasetup;
 
 import entities.enums.CounterStatus;
 import entities.enums.ItemType;
+import entities.enums.Role;
 import entities.interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -105,7 +106,7 @@ public class DataProvider {
     }
 
     private void addPredefinedItemsToInventory() {
-        FreshProduceItem apple = new FreshProduceItem(1, "apple", ItemType.FRUIT, "Dole" ,12f, 100, 0, 100, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-01"), 1.2f);
+        FreshProduceItem apple = new FreshProduceItem(1, "apple", ItemType.FRUIT, "Dole", 12f, 100, 0, 100, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-01"), 1.2f);
         FreshProduceItem orange = new FreshProduceItem(2, "orange", ItemType.FRUIT, "Dole", 10f, 50, 0, 50, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-04"), 1.5f);
         PerishableItem oreo = new PerishableItem(3, "oreo", ItemType.COOKIE, "Pepsico", 0, 3, 12, asileHashMap.get("asile1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-02-02"));
         NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", ItemType.CLEANING_PRODUCT, "p&g", 5.0f, 0, 10, 10, asileHashMap.get("asile3"), supplierHashMap.get("supplierCleaning"), 1f);
@@ -172,12 +173,12 @@ public class DataProvider {
     }
 
     private void addPreDefinedEmployees() {
-        Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234", 111, "Manager", 10000);
+        Employee employee1 = new Employee(1, "person1", "xyz 1234", "1231231234", 111, Role.ASSISTANT_STORE_MANAGER, Role.STORE_MANAGER.getBaseSalary());
         Manager manager1 = new Manager(employee1, "store lock \n leave approval");
-        Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567", 222, "Billing", 1000, manager1);
-        Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
-        Employee employee4 = new Employee(4, "person4", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
-        Employee employee5 = new Employee(5, "perso5", "efg 1234", "12312318777", 333, "AsileMaintaence", 10000, manager1);
+        Employee employee2 = new Employee(2, "person2", "bc 1234", "12312312567", 222, Role.CASHIER, Role.CASHIER.getBaseSalary(), manager1);
+        Employee employee3 = new Employee(3, "person3", "efg 1234", "12312318777", 333, Role.STOCK_CLERK, Role.STOCK_CLERK.getBaseSalary(), manager1);
+        Employee employee4 = new Employee(4, "person4", "efg 1234", "12312318777", 333, Role.INVENTORY_CONTROL_SPECIALIST, Role.INVENTORY_CONTROL_SPECIALIST.getBaseSalary(), manager1);
+        Employee employee5 = new Employee(5, "perso5", "efg 1234", "12312318777", 333, Role.STOCK_CLERK, Role.STOCK_CLERK.getBaseSalary(), manager1);
         employee2.setShiftStartTime(Calendar.getInstance().getTime());
         employee2.setShiftEndTime(Calendar.getInstance().getTime());
         employee3.setShiftStartTime(Calendar.getInstance().getTime());

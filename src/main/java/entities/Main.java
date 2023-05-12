@@ -113,9 +113,11 @@ public class Main {
 
         ItemStoringTempAndHumidity.groupby(shop.getInventory().getItems().values());
         LOGGER.info("All the counters that are closed" + CounterStatus.CLOSED.getCounters(shop.getBillingCounters()));
-        LOGGER.info("Lowest salary " + shop.getMinMaxEmployeeSalary(((Float min, Float salary) -> salary > min ? min : salary),100000000.0f));
-        LOGGER.info("Highest salary " + shop.getMinMaxEmployeeSalary((Float max, Float salary) -> salary > max ? salary : max,0.0f));
+        LOGGER.info("Lowest salary " + shop.getMinMaxEmployeeSalary(((Float min, Float salary) -> salary > min ? min : salary), 100000000.0f));
+        LOGGER.info("Highest salary " + shop.getMinMaxEmployeeSalary((Float max, Float salary) -> salary > max ? salary : max, 0.0f));
 
         LOGGER.info("The expenditure by salary in store is :: " + shop.getExpenditure());
+
+        shop.displayCounterStatus();
     }
 }

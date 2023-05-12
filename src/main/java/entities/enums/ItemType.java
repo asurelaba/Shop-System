@@ -12,7 +12,7 @@ public enum ItemType {
     FROZEN(ItemStoringTempAndHumidity.FREEZER),
     COOKIE(ItemStoringTempAndHumidity.INDOOR_ROOM_TEMP);
 
-    private ItemStoringTempAndHumidity itemStoringTempAndHumidity;
+    private final ItemStoringTempAndHumidity itemStoringTempAndHumidity;
 
     ItemType(ItemStoringTempAndHumidity itemStoringTempAndHumidity) {
         this.itemStoringTempAndHumidity = itemStoringTempAndHumidity;

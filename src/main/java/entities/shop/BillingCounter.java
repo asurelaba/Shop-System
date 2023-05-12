@@ -103,12 +103,6 @@ public class BillingCounter implements Comparable<BillingCounter> {
 
     public static float getWeightOfItemInCart(Supplier<Float> supplier) {
         return supplier.get();
-//
-//        Random random = new Random();
-//        if (item.getClass() == FreshProduceItem.class) {
-//            return random.nextFloat(10);
-//        }
-//        return 1;
     }
 
     @Override

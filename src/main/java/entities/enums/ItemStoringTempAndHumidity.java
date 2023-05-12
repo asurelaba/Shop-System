@@ -18,8 +18,8 @@ public enum ItemStoringTempAndHumidity {
     MIST_AREA(60.0f, 90);
 
     private static final Logger LOGGER = LogManager.getLogger(ItemStoringTempAndHumidity.class);
-    float temp;
-    int humidity;
+    private final float temp;
+    private final int humidity;
 
     ItemStoringTempAndHumidity(float temp, int humidity) {
         this.temp = temp;

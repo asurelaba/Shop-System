@@ -1,5 +1,6 @@
 package entities.people;
 
+import entities.enums.Role;
 import entities.interfaces.IWorkingShift;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ public class Employee extends Person implements IWorkingShift {
     private static final Logger LOGGER = LogManager.getLogger(Employee.class);
     protected static byte workHours;
     protected int employeeId;
-    protected String role;
+    protected Role role;
     protected float salary;
     protected Manager manager;
     protected Date shiftStartTime;
@@ -28,14 +29,14 @@ public class Employee extends Person implements IWorkingShift {
     }
 
 
-    public Employee(int personId, String name, String address, String phone, int employeeId, String role, float salary) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, Role role, float salary) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
         this.salary = salary;
     }
 
-    public Employee(int personId, String name, String address, String phone, int employeeId, String role, float salary, Manager manager) {
+    public Employee(int personId, String name, String address, String phone, int employeeId, Role role, float salary, Manager manager) {
         super(personId, name, address, phone);
         this.employeeId = employeeId;
         this.role = role;
@@ -60,11 +61,11 @@ public class Employee extends Person implements IWorkingShift {
         this.employeeId = employeeId;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

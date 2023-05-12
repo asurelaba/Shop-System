@@ -62,8 +62,8 @@ public class Manager extends Employee implements ISalary {
         }
     }
 
-    public void checkEmployeeWorkingHours(){
-        for (Employee employee: employees) {
+    public void checkEmployeeWorkingHours() {
+        for (Employee employee : employees) {
             employee.checkWorkingHours();
         }
     }

@@ -304,7 +304,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
             if (employee.getManager() != null) {
                 employee.getManager().salaryHike(employee, percentage);
             } else {
-                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage));
+                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage / 100));
             }
         }
     }
@@ -327,7 +327,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
 
     public float getMinMaxEmployeeSalary(BinaryOperator<Float> binaryOperator, float value) {
         for (Employee employee : employees) {
-            LOGGER.info(employee.getSalary());
+            LOGGER.debug(employee.getSalary());
             value = binaryOperator.apply(value, employee.getSalary());
         }
         return value;
@@ -336,9 +336,13 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public float getExpenditure() {
         Aggregate<Float> aggregate = (a, b) -> a + b;
         float sum = 0.0f;
-        for (Employee employee: employees) {
-            sum = aggregate.operate(sum,employee.getSalary());
+        for (Employee employee : employees) {
+            sum = aggregate.operate(sum, employee.getSalary());
         }
         return sum;
+    }
+
+    public void displayCounterStatus() {
+        billingCounters.forEach((counter) -> LOGGER.info(counter.getCounterNum() + " " + counter.getCounterStatus()));
     }
 }
