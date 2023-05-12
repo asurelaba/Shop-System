@@ -1,6 +1,7 @@
 package entities.datasetup;
 
 import entities.enums.CounterStatus;
+import entities.enums.DisplayZone;
 import entities.enums.ItemType;
 import entities.enums.Role;
 import entities.interfaces.IMaintainColdSection;
@@ -60,9 +61,9 @@ public class DataProvider {
         Asile asile1 = new Asile(1, 20, 4);
         Asile asile2 = new Asile(2, 20, 4);
         Asile asile3 = new Asile(3, 20, 4);
-        MarketAsile marketFront = new MarketAsile(20, 100, 1, "Front");
-        MarketAsile marketCenter = new MarketAsile(21, 30, 1, "Center");
-        MarketAsile marketBack = new MarketAsile(22, 30, 1, "Back");
+        MarketAsile marketFront = new MarketAsile(20, 100, 1, DisplayZone.FRONT);
+        MarketAsile marketCenter = new MarketAsile(21, 30, 1, DisplayZone.CENTER);
+        MarketAsile marketBack = new MarketAsile(22, 30, 1, DisplayZone.BACK);
         RefrigiratorAsile refrigirator1 = new RefrigiratorAsile(40, 40, 3, 30.5f);
         RefrigiratorAsile refrigirator2 = new RefrigiratorAsile(41, 40, 3, 30.5f);
         FreezerAsile freezer1 = new FreezerAsile(50, 20, 5, -12.0f);

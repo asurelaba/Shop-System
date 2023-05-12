@@ -7,19 +7,21 @@ package entities.shop;
  * @author Ashwini Suresh
  * */
 
-public class MarketAsile extends Asile {
-    private String displayZone;
+import entities.enums.DisplayZone;
 
-    public MarketAsile(int asileNum, int capacity, int numOfShelves, String displayZone) {
+public class MarketAsile extends Asile {
+    private DisplayZone displayZone;
+
+    public MarketAsile(int asileNum, int capacity, int numOfShelves, DisplayZone displayZone) {
         super(asileNum, capacity, numOfShelves);
         this.displayZone = displayZone;
     }
 
-    public String getDisplayZone() {
+    public DisplayZone getDisplayZone() {
         return displayZone;
     }
 
-    public void setDisplayZone(String displayZone) {
+    public void setDisplayZone(DisplayZone displayZone) {
         this.displayZone = displayZone;
     }
 }
