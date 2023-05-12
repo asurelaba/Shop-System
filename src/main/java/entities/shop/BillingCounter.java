@@ -2,6 +2,7 @@ package entities.shop;
 
 import entities.customexceptions.ItemNotFilledBySupplierException;
 import entities.customexceptions.NoMoreItemInAsileException;
+import entities.enums.CounterStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import entities.people.*;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 /*
  * BillingCounter class represents checkout counters.
@@ -25,11 +28,13 @@ public class BillingCounter implements Comparable<BillingCounter> {
     private int counterNum;
     private Employee employee;
     private ArrayList<Receipt> receipts;
+    private CounterStatus counterStatus;
 
     public BillingCounter(int counterNum, Employee employee) {
         this.counterNum = counterNum;
         this.employee = employee;
         this.receipts = new ArrayList<Receipt>();
+        this.counterStatus = CounterStatus.CLOSED;
     }
 
     public int getCounterNum() {
@@ -48,6 +53,14 @@ public class BillingCounter implements Comparable<BillingCounter> {
         this.employee = employee;
     }
 
+    public CounterStatus getCounterStatus() {
+        return counterStatus;
+    }
+
+    public void setCounterStatus(CounterStatus counterStatus) {
+        this.counterStatus = counterStatus;
+    }
+
     public Receipt checkout(Shop shop, Customer customer, ArrayList<Item> items) {
         float total = 0;
         for (Item item : items) {
@@ -64,7 +77,9 @@ public class BillingCounter implements Comparable<BillingCounter> {
             }
             if (item.getClass() == FreshProduceItem.class) {
                 FreshProduceItem freshProduceItem = (FreshProduceItem) item;
-                total += calculatePrice(getWeightOfItemInCart(item), freshProduceItem.getPricePerPound());
+                total += calculatePrice(getWeightOfItemInCart(() ->
+                                item.getClass() == FreshProduceItem.class ? new Random().nextFloat(10) : 1),
+                        freshProduceItem.getPricePerPound());
                 item.setQuantityInAsile(item.getQuantityInAsile() - 1);
                 continue;
             }
@@ -86,12 +101,8 @@ public class BillingCounter implements Comparable<BillingCounter> {
         return weight * pricePerPound;
     }
 
-    public static float getWeightOfItemInCart(Item item) {
-        Random random = new Random();
-        if (item.getClass() == FreshProduceItem.class) {
-            return random.nextFloat(10);
-        }
-        return 1;
+    public static float getWeightOfItemInCart(Supplier<Float> supplier) {
+        return supplier.get();
     }
 
     @Override
@@ -109,7 +120,7 @@ public class BillingCounter implements Comparable<BillingCounter> {
 
     @Override
     public int compareTo(BillingCounter that) {
-        return ((Integer)counterNum).compareTo(that.counterNum);
+        return ((Integer) counterNum).compareTo(that.counterNum);
     }
 
     @Override

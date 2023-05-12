@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.BinaryOperator;
+import java.util.function.BooleanSupplier;
 
 /*
  * Diary class represents the diary products.

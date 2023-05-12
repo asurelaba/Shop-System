@@ -2,6 +2,8 @@ package entities.shop;
 
 import entities.customexceptions.ColdStorageNotWorkingException;
 import entities.customexceptions.FreezerAsileNotWorkingException;
+import entities.customlambda.IAggregate;
+import entities.customlambda.IFilter;
 import entities.interfaces.IFileTaxes;
 import entities.interfaces.IFoodSafetyChecks;
 import entities.interfaces.IMaintainColdSection;
@@ -12,6 +14,8 @@ import entities.people.Employee;
 import entities.people.Manager;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 /*
  * Shop class represents all the entities of the shop.
@@ -166,7 +170,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         return customers;
     }
 
-    public  void displayCustomers() {
+    public void displayCustomers() {
         LOGGER.info(" :::::::::::::::::::::::Customers of the shop ::::::::::::::::: ");
         LOGGER.info("There are " + customers.getSize() + " regular customers for " + SHOPNAME);
         LOGGER.info("Customer Details::");
@@ -229,8 +233,11 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
 
     public int getTotalReceiptsCount() {
         int total = 0;
+        BiFunction<Integer, BillingCounter, Integer> biFunction = ((Integer totalReceiptsCount, BillingCounter counter) ->
+                totalReceiptsCount + counter.getReceiptsCount());
+
         for (BillingCounter billingCounter : billingCounters) {
-            total += billingCounter.getReceiptsCount();
+            total = biFunction.apply(total, billingCounter);
         }
         return total;
     }
@@ -297,7 +304,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
             if (employee.getManager() != null) {
                 employee.getManager().salaryHike(employee, percentage);
             } else {
-                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage));
+                employee.setSalary(employee.getSalary() + (employee.getSalary() * percentage / 100));
             }
         }
     }
@@ -306,5 +313,36 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     public void isMinWageMetForEmployeesUnder(Manager manager) {
         manager.isMinWageMetForEmployees();
         LOGGER.info("Min wage check is completed by : " + manager);
+    }
+
+    public void getItemsByFilter(IFilter<Item> itemFilter) {
+        List<Item> itemsFiltered = new ArrayList<>();
+        for (Item item : inventory.getItems().values()) {
+            if (itemFilter.filterBy(item)) {
+                itemsFiltered.add(item);
+            }
+        }
+        LOGGER.info(itemsFiltered.size() + " results found\n" + itemsFiltered);
+    }
+
+    public float getMinMaxEmployeeSalary(BinaryOperator<Float> binaryOperator, float value) {
+        for (Employee employee : employees) {
+            LOGGER.debug(employee.getSalary());
+            value = binaryOperator.apply(value, employee.getSalary());
+        }
+        return value;
+    }
+
+    public float getExpenditure() {
+        IAggregate<Float> aggregate = (a, b) -> a + b;
+        float sum = 0.0f;
+        for (Employee employee : employees) {
+            sum = aggregate.operate(sum, employee.getSalary());
+        }
+        return sum;
+    }
+
+    public void displayCounterStatus() {
+        billingCounters.forEach((counter) -> LOGGER.info(counter.getCounterNum() + " " + counter.getCounterStatus()));
     }
 }

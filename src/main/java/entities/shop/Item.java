@@ -8,11 +8,14 @@ package entities.shop;
  * */
 
 
+import entities.enums.ItemType;
+
 import java.util.Objects;
 
 public abstract class Item {
     protected int itemNo;
     protected String itemName;
+    protected ItemType itemType;
     protected String brand;
     protected float price;
     protected int quantityInAsile;
@@ -21,10 +24,11 @@ public abstract class Item {
     protected Asile asile;
     protected Supplier supplier;
 
-    public Item(int itemNo, String name, String brand, float price,
+    public Item(int itemNo, String name, ItemType itemType, String brand, float price,
                 int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
         this.itemName = name;
+        this.itemType = itemType;
         this.brand = brand;
         this.price = price;
         this.quantityInAsile = quantityInAsile;
@@ -34,9 +38,10 @@ public abstract class Item {
         this.supplier = supplier;
     }
 
-    public Item(int itemNo, String name, String brand, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier) {
+    public Item(int itemNo, String name, ItemType itemType, String brand, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier) {
         this.itemNo = itemNo;
         this.itemName = name;
+        this.itemType = itemType;
         this.brand = brand;
         this.quantityInAsile = quantityInAsile;
         this.quantityInInventory = quantityInInventory;
@@ -59,6 +64,10 @@ public abstract class Item {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public ItemType getItemType() {
+        return itemType;
     }
 
     public String getBrand() {

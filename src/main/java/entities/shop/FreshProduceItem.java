@@ -1,5 +1,7 @@
 package entities.shop;
 
+import entities.enums.ItemType;
+
 import java.time.LocalDate;
 
 /*
@@ -10,12 +12,11 @@ import java.time.LocalDate;
  * */
 
 
-
 public final class FreshProduceItem extends PerishableItem {
     private float pricePerPound;
 
-    public FreshProduceItem(int itemNo, String name, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore, float pricePerPound) {
-        super(itemNo, name, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier, bestBefore);
+    public FreshProduceItem(int itemNo, String name, ItemType itemType, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore, float pricePerPound) {
+        super(itemNo, name, itemType, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier, bestBefore);
         this.pricePerPound = pricePerPound;
     }
 

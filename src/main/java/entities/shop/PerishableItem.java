@@ -1,5 +1,7 @@
 package entities.shop;
 
+import entities.enums.ItemType;
+
 import java.time.LocalDate;
 import java.util.Date;
 /*
@@ -13,13 +15,13 @@ import java.util.Date;
 public class PerishableItem extends Item {
     protected LocalDate bestBefore;
 
-    public PerishableItem(int itemNo, String name, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
-        super(itemNo, name, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier);
+    public PerishableItem(int itemNo, String name, ItemType itemType, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
+        super(itemNo, name, itemType, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier);
         this.bestBefore = bestBefore;
     }
 
-    public PerishableItem(int itemNo, String name, String brand, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
-        super(itemNo, name, brand, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier);
+    public PerishableItem(int itemNo, String name, ItemType itemType, String brand, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore) {
+        super(itemNo, name,itemType, brand, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier);
         this.bestBefore = bestBefore;
     }
 
