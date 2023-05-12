@@ -1,6 +1,9 @@
 package entities;
 
 import entities.datasetup.DataProvider;
+import entities.enums.CounterStatus;
+import entities.enums.ItemStoringTempAndHumidity;
+import entities.enums.ItemType;
 import entities.uniquewordcount.UniqueWordCounter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,5 +90,32 @@ public class Main {
         LOGGER.info(" customers at position 1: " + shop.getCustomers().get(1));
 
         UniqueWordCounter.wordCount(new File("src/main/resources/count_unique_words_input.txt"));
+
+        LOGGER.info("Please enter what you would like to search. You can search by type or price");
+        Scanner scanner = new Scanner(System.in);
+        String filterByOption = scanner.nextLine();
+        switch (filterByOption) {
+            case "type":
+                LOGGER.info("Enter the type of item you want to search");
+                String itemtype = scanner.nextLine();
+                shop.getItemsByFilter((Item item) -> item.getItemType() == ItemType.valueOf(itemtype.toUpperCase()));
+                break;
+            case "price":
+                LOGGER.info("Enter the min and max price");
+                float min = scanner.nextFloat();
+                float max = scanner.nextFloat();
+                shop.getItemsByFilter(((Item item) -> item.getPrice() >= min && item.getPrice() <= max));
+                break;
+            default:
+                LOGGER.info("please enter valid choice");
+                break;
+        }
+
+        ItemStoringTempAndHumidity.groupby(shop.getInventory().getItems().values());
+        LOGGER.info("All the counters that are closed" + CounterStatus.CLOSED.getCounters(shop.getBillingCounters()));
+        LOGGER.info("Lowest salary " + shop.getMinMaxEmployeeSalary(((Float min, Float salary) -> salary > min ? min : salary),100000000.0f));
+        LOGGER.info("Highest salary " + shop.getMinMaxEmployeeSalary((Float max, Float salary) -> salary > max ? salary : max,0.0f));
+
+        LOGGER.info("The expenditure by salary in store is :: " + shop.getExpenditure());
     }
 }

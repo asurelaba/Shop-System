@@ -1,5 +1,7 @@
 package entities.datasetup;
 
+import entities.enums.CounterStatus;
+import entities.enums.ItemType;
 import entities.interfaces.IMaintainColdSection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -98,18 +100,19 @@ public class DataProvider {
         shop.addBillingCounter(counter3);
         shop.addBillingCounter(counter2);
         shop.addBillingCounter(counter2);
+        counter2.setCounterStatus(CounterStatus.OPEN);
         LOGGER.info("Counters are added to the shop " + shop.getBillingCounters());
     }
 
     private void addPredefinedItemsToInventory() {
-        FreshProduceItem apple = new FreshProduceItem(1, "apple", "Dole", 12f, 100, 0, 100, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-01"), 1.2f);
-        FreshProduceItem orange = new FreshProduceItem(2, "orange", "Dole", 10f, 50, 0, 50, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-04"), 1.5f);
-        PerishableItem oreo = new PerishableItem(3, "oreo", "Pepsico", 0, 3, 12, asileHashMap.get("asile1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-02-02"));
-        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", "p&g", 5.0f, 0, 10, 10, asileHashMap.get("asile3"), supplierHashMap.get("supplierCleaning"), 1f);
-        FrozenItem iceCream = new FrozenItem(10, "iceCream", "Brusters", 3.2f, 0, 30, 30, asileHashMap.get("freezer1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-07-01"), -10f);
-        DiaryItem milk = new DiaryItem(50, "Whole milk", "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-01-10"));
-        DiaryItem yogurt = new DiaryItem(51, "yogurt", "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-12-10"));
-        DiaryItem cheese = new DiaryItem(52, "Cheese", "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-01-10"));
+        FreshProduceItem apple = new FreshProduceItem(1, "apple", ItemType.FRUIT, "Dole" ,12f, 100, 0, 100, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-01"), 1.2f);
+        FreshProduceItem orange = new FreshProduceItem(2, "orange", ItemType.FRUIT, "Dole", 10f, 50, 0, 50, asileHashMap.get("marketFront"), supplierHashMap.get("supplierFruit"), LocalDate.parse("2023-01-04"), 1.5f);
+        PerishableItem oreo = new PerishableItem(3, "oreo", ItemType.COOKIE, "Pepsico", 0, 3, 12, asileHashMap.get("asile1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-02-02"));
+        NonPerishableItem lyzol = new NonPerishableItem(5, "lyzol", ItemType.CLEANING_PRODUCT, "p&g", 5.0f, 0, 10, 10, asileHashMap.get("asile3"), supplierHashMap.get("supplierCleaning"), 1f);
+        FrozenItem iceCream = new FrozenItem(10, "iceCream", ItemType.FROZEN, "Brusters", 3.2f, 0, 30, 30, asileHashMap.get("freezer1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-07-01"), -10f);
+        DiaryItem milk = new DiaryItem(50, "Whole milk", ItemType.DIARY, "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-01-10"));
+        DiaryItem yogurt = new DiaryItem(51, "yogurt", ItemType.DIARY, "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-12-10"));
+        DiaryItem cheese = new DiaryItem(52, "Cheese", ItemType.DIARY, "Kirkland", 4.0f, 0, 50, 50, asileHashMap.get("refrigirator1"), supplierHashMap.get("supplierPerishable"), LocalDate.parse("2023-01-10"));
 
         TreeMap<Integer, Item> inventoryArr = new TreeMap<>();
         inventoryArr.put(apple.getItemNo(), apple);

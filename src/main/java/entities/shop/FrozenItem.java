@@ -1,5 +1,7 @@
 package entities.shop;
 
+import entities.enums.ItemType;
+
 import java.time.LocalDate;
 
 /*
@@ -12,8 +14,8 @@ import java.time.LocalDate;
 public final class FrozenItem extends PerishableItem {
     private float minTemp;
 
-    public FrozenItem(int itemNo, String name, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore, float minTemp) {
-        super(itemNo, name, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier, bestBefore);
+    public FrozenItem(int itemNo, String name, ItemType itemType, String brand, float price, int quantityInAsile, int quantityInInventory, int maxQuantity, Asile asile, Supplier supplier, LocalDate bestBefore, float minTemp) {
+        super(itemNo, name, itemType, brand, price, quantityInAsile, quantityInInventory, maxQuantity, asile, supplier, bestBefore);
         this.minTemp = minTemp;
     }
 
