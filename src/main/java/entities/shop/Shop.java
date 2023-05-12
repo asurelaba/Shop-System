@@ -2,8 +2,8 @@ package entities.shop;
 
 import entities.customexceptions.ColdStorageNotWorkingException;
 import entities.customexceptions.FreezerAsileNotWorkingException;
-import entities.customlambda.Aggregate;
-import entities.customlambda.Filter;
+import entities.customlambda.IAggregate;
+import entities.customlambda.IFilter;
 import entities.interfaces.IFileTaxes;
 import entities.interfaces.IFoodSafetyChecks;
 import entities.interfaces.IMaintainColdSection;
@@ -315,7 +315,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         LOGGER.info("Min wage check is completed by : " + manager);
     }
 
-    public void getItemsByFilter(Filter<Item> itemFilter) {
+    public void getItemsByFilter(IFilter<Item> itemFilter) {
         List<Item> itemsFiltered = new ArrayList<>();
         for (Item item : inventory.getItems().values()) {
             if (itemFilter.filterBy(item)) {
@@ -334,7 +334,7 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public float getExpenditure() {
-        Aggregate<Float> aggregate = (a, b) -> a + b;
+        IAggregate<Float> aggregate = (a, b) -> a + b;
         float sum = 0.0f;
         for (Employee employee : employees) {
             sum = aggregate.operate(sum, employee.getSalary());

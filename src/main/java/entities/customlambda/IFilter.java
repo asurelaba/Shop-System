@@ -1,8 +1,6 @@
 package entities.customlambda;
 
-import java.util.List;
-
 @FunctionalInterface
-public interface Filter<T> {
+public interface IFilter<T> {
     boolean filterBy(T t);
 }

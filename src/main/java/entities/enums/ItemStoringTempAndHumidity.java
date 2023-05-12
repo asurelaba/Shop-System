@@ -1,6 +1,6 @@
 package entities.enums;
 
-import entities.customlambda.Group;
+import entities.customlambda.IGroup;
 import entities.shop.Item;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +43,7 @@ public enum ItemStoringTempAndHumidity {
     }
 
     public static void groupby(Collection<Item> items) {
-        Group group = (ItemStoringTempAndHumidity tempAndHumidity) -> {
+        IGroup group = (ItemStoringTempAndHumidity tempAndHumidity) -> {
             List<Item> groupedItems = new ArrayList<>();
             items.forEach((Item item) -> {
                 if (item.getItemType().getItemStoringTempAndHumidity() == tempAndHumidity) {
