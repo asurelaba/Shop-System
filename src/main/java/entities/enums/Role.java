@@ -32,4 +32,5 @@ public enum Role {
     public int getBaseSalary() {
         return baseSalary;
     }
+
 }

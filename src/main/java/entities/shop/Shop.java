@@ -4,6 +4,7 @@ import entities.customexceptions.ColdStorageNotWorkingException;
 import entities.customexceptions.FreezerAsileNotWorkingException;
 import entities.customlambda.IAggregate;
 import entities.customlambda.IFilter;
+import entities.enums.Role;
 import entities.interfaces.IFileTaxes;
 import entities.interfaces.IFoodSafetyChecks;
 import entities.interfaces.IMaintainColdSection;
@@ -16,6 +17,8 @@ import entities.people.Manager;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /*
  * Shop class represents all the entities of the shop.
@@ -232,36 +235,52 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public int getTotalReceiptsCount() {
-        int total = 0;
-        BiFunction<Integer, BillingCounter, Integer> biFunction = ((Integer totalReceiptsCount, BillingCounter counter) ->
-                totalReceiptsCount + counter.getReceiptsCount());
+//        int total = 0;
+//        BiFunction<Integer, BillingCounter, Integer> biFunction = ((Integer totalReceiptsCount, BillingCounter counter) ->
+//                totalReceiptsCount + counter.getReceiptsCount());
+//
+//        for (BillingCounter billingCounter : billingCounters) {
+//            total = biFunction.apply(total, billingCounter);
+//        }
+//        return total;
 
-        for (BillingCounter billingCounter : billingCounters) {
-            total = biFunction.apply(total, billingCounter);
-        }
-        return total;
+        return billingCounters
+                .stream()
+                .mapToInt(BillingCounter::getReceiptsCount)
+                .sum();
     }
 
     //check if food handling is done in all the freezer and perishable section
     @Override
     public boolean hasFoodHandlingProcess() {
-        boolean hasFoodHandling = true;
-        for (FreezerAsile freezer : freezers) {
-            hasFoodHandling = hasFoodHandling && freezer.hasFoodHandlingProcess();
-        }
-        return hasFoodHandling;
+        return asiles.values()
+                .stream()
+                .filter((asile) -> asile.getClass() == FreezerAsile.class)
+                .map((freezer) -> ((FreezerAsile) freezer).hasFoodHandlingProcess())
+                .reduce(true, (a, b) -> a && b);
     }
 
     //ask inventory to check through all items for expiry
     @Override
     public void removePerishableBeforeExpiry() {
-        for (Asile asile : asiles.values()) {
-            if (asile.getClass() == FreezerAsile.class) {
-                ((FreezerAsile) asile).removePerishableBeforeExpiry();
-            } else if (asile.getClass() == RefrigiratorAsile.class) {
-                ((RefrigiratorAsile) asile).removePerishableBeforeExpiry();
-            }
-        }
+        asiles.values()
+                .stream()
+                .filter((asile) -> asile.getClass() == FreezerAsile.class)
+                .forEach((a) -> ((FreezerAsile) a).removePerishableBeforeExpiry());
+
+
+        asiles.values()
+                .stream()
+                .filter((Asile asile) -> asile.getClass() == RefrigiratorAsile.class)
+                .forEach((a) -> ((RefrigiratorAsile) a).removePerishableBeforeExpiry());
+
+//        for (Asile asile : asiles.values()) {
+//            if (asile.getClass() == FreezerAsile.class) {
+//                ((FreezerAsile) asile).removePerishableBeforeExpiry();
+//            } else if (asile.getClass() == RefrigiratorAsile.class) {
+//                ((RefrigiratorAsile) asile).removePerishableBeforeExpiry();
+//            }
+//        }
     }
 
     @Override
@@ -344,5 +363,13 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
 
     public void displayCounterStatus() {
         billingCounters.forEach((counter) -> LOGGER.info(counter.getCounterNum() + " " + counter.getCounterStatus()));
+    }
+
+    public void displayEmployeebyRole(Role role) {
+        List<Employee> employeesByRole = employees
+                .stream()
+                .filter(employee -> employee.getRole()==role)
+                .collect(Collectors.toList());
+        LOGGER.info(employeesByRole);
     }
 }

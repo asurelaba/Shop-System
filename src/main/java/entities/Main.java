@@ -4,6 +4,7 @@ import entities.datasetup.DataProvider;
 import entities.enums.CounterStatus;
 import entities.enums.ItemStoringTempAndHumidity;
 import entities.enums.ItemType;
+import entities.enums.Role;
 import entities.uniquewordcount.UniqueWordCounter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,6 +64,7 @@ public class Main {
         shop.increaseSalaryForEmployees(2.0f);
 
         //check for food safety
+        LOGGER.info("Checking for food safety violations." + shop.hasFoodHandlingProcess());
         if (!shop.hasFoodHandlingProcess()) {
             LOGGER.fatal("The shop will be closed due to food safety violations.");
         }
@@ -91,7 +93,7 @@ public class Main {
 
         UniqueWordCounter.wordCount(new File("src/main/resources/count_unique_words_input.txt"));
 
-        LOGGER.info("Please enter what you would like to search. You can search by type or price");
+        LOGGER.info("Please enter what you would like to search. You can search by type or price or exit");
         Scanner scanner = new Scanner(System.in);
         String filterByOption = scanner.nextLine();
         switch (filterByOption) {
@@ -106,6 +108,8 @@ public class Main {
                 float max = scanner.nextFloat();
                 shop.getItemsByFilter(((Item item) -> item.getPrice() >= min && item.getPrice() <= max));
                 break;
+            case "exit":
+                break;
             default:
                 LOGGER.info("please enter valid choice");
                 break;
@@ -119,5 +123,8 @@ public class Main {
         LOGGER.info("The expenditure by salary in store is :: " + shop.getExpenditure());
 
         shop.displayCounterStatus();
+        LOGGER.info(CounterStatus.groupBy(shop.getBillingCounters()));
+
+        shop.displayEmployeebyRole(Role.CASHIER);
     }
 }
