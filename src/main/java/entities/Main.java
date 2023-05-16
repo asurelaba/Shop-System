@@ -5,12 +5,14 @@ import entities.enums.CounterStatus;
 import entities.enums.ItemStoringTempAndHumidity;
 import entities.enums.ItemType;
 import entities.enums.Role;
+import entities.reflectionops.ReflectShop;
 import entities.uniquewordcount.UniqueWordCounter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 import entities.people.*;
@@ -125,6 +127,10 @@ public class Main {
         shop.displayCounterStatus();
         LOGGER.info(CounterStatus.groupBy(shop.getBillingCounters()));
 
-        shop.displayEmployeebyRole(Role.CASHIER);
+        shop.displayEmployeesbyRole(Role.CASHIER);
+
+        //accessing class properties and methods using Reflection
+        ReflectShop reflectShop = new ReflectShop();
+        reflectShop.createEmployees();
     }
 }

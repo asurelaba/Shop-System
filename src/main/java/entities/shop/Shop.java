@@ -182,7 +182,6 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         }
     }
 
-
     public void addSupplier(Supplier supplier) {
         suppliers.add(supplier);
     }
@@ -235,15 +234,6 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
     }
 
     public int getTotalReceiptsCount() {
-//        int total = 0;
-//        BiFunction<Integer, BillingCounter, Integer> biFunction = ((Integer totalReceiptsCount, BillingCounter counter) ->
-//                totalReceiptsCount + counter.getReceiptsCount());
-//
-//        for (BillingCounter billingCounter : billingCounters) {
-//            total = biFunction.apply(total, billingCounter);
-//        }
-//        return total;
-
         return billingCounters
                 .stream()
                 .mapToInt(BillingCounter::getReceiptsCount)
@@ -268,19 +258,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
                 .filter((asile) -> asile.getClass() == FreezerAsile.class)
                 .forEach((a) -> ((FreezerAsile) a).removePerishableBeforeExpiry());
 
-
         asiles.values()
                 .stream()
                 .filter((Asile asile) -> asile.getClass() == RefrigiratorAsile.class)
                 .forEach((a) -> ((RefrigiratorAsile) a).removePerishableBeforeExpiry());
-
-//        for (Asile asile : asiles.values()) {
-//            if (asile.getClass() == FreezerAsile.class) {
-//                ((FreezerAsile) asile).removePerishableBeforeExpiry();
-//            } else if (asile.getClass() == RefrigiratorAsile.class) {
-//                ((RefrigiratorAsile) asile).removePerishableBeforeExpiry();
-//            }
-//        }
     }
 
     @Override
@@ -365,10 +346,10 @@ public final class Shop implements IFoodSafetyChecks, IFileTaxes {
         billingCounters.forEach((counter) -> LOGGER.info(counter.getCounterNum() + " " + counter.getCounterStatus()));
     }
 
-    public void displayEmployeebyRole(Role role) {
+    public void displayEmployeesbyRole(Role role) {
         List<Employee> employeesByRole = employees
                 .stream()
-                .filter(employee -> employee.getRole()==role)
+                .filter(employee -> employee.getRole() == role)
                 .collect(Collectors.toList());
         LOGGER.info(employeesByRole);
     }
