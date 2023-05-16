@@ -25,7 +25,7 @@ public enum CounterStatus {
         return filteredCounters;
     }
 
-    public static Map<CounterStatus,List<BillingCounter>> groupBy (Collection<BillingCounter> billingCounters){
+    public static Map<CounterStatus, List<BillingCounter>> groupBy(Collection<BillingCounter> billingCounters) {
         return billingCounters
                 .stream()
                 .collect(
