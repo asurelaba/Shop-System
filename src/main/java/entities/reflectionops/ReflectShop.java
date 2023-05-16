@@ -19,7 +19,7 @@ public class ReflectShop {
 
             //display methods and properties
             System.out.println("DeclaredConstructors:: " + Arrays.toString(managerClass.getDeclaredConstructors()));
-            System.out.println(" DeclaredMethod:: " + Arrays.toString(managerClass.getDeclaredMethods()));
+            System.out.println("DeclaredMethod:: " + Arrays.toString(managerClass.getDeclaredMethods()));
             System.out.println("Methods:: " + Arrays.toString(managerClass.getMethods()));
             System.out.println("Fields:: " + Arrays.toString(managerClass.getFields()));
             System.out.println("DeclaredFields:: " + Arrays.toString(managerClass.getDeclaredFields()));
