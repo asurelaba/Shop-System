@@ -67,4 +67,12 @@ public abstract class Person {
     public final int hashCode() {
         return Objects.hash(personId, name, phone);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

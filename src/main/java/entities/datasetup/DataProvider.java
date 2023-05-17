@@ -12,6 +12,7 @@ import entities.people.Employee;
 import entities.people.Manager;
 import entities.shop.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -196,11 +197,8 @@ public class DataProvider {
 
         managerHashMap.put("manager1", manager1);
 
-        employeeHashMap.put("employee1", employee1);
-        employeeHashMap.put("employee2", employee2);
-        employeeHashMap.put("employee3", employee3);
-        employeeHashMap.put("employee4", employee4);
-        employeeHashMap.put("employee5", employee5);
+        shop.getEmployees()
+                .forEach(employee -> employeeHashMap.put(employee.getName(), employee));
         LOGGER.info("Employees and managers are added to the shop");
     }
 }
