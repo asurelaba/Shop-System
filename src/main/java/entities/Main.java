@@ -6,6 +6,9 @@ import entities.enums.ItemStoringTempAndHumidity;
 import entities.enums.ItemType;
 import entities.enums.Role;
 import entities.reflectionops.ReflectShop;
+import entities.threadoperations.AccessConnection;
+import entities.threadoperations.ConnectionPool;
+import entities.threadoperations.ThreadByExtendImplement;
 import entities.uniquewordcount.UniqueWordCounter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -132,5 +135,15 @@ public class Main {
         //accessing class properties and methods using Reflection
         ReflectShop reflectShop = new ReflectShop();
         reflectShop.createEmployees();
+
+        //Threads and connection pool
+        Thread thread1 = new ThreadByExtendImplement().createThreadByRunnable();
+        Thread thread2 = new ThreadByExtendImplement().createThreadByThreadClass();
+        LOGGER.info("Thread1 ID::" + thread1.getId() + "::" + thread1.getName());
+        LOGGER.info("Thread1 ID::" + thread2.getId() + "::" + thread2.getName());
+        thread1.start();
+        thread2.start();
+
+        new AccessConnection().connectionWithThreads();
     }
 }
